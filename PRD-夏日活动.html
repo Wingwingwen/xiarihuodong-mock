@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRD：《夏日活动》</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-sidebar: #f6f9fc;
+  --bg-soft: #fafbfc;
+  --text: #1a1f36;
+  --text-secondary: #425466;
+  --muted: #697386;
+  --border: #e3e8ee;
+  --border-soft: #eef1f6;
+  --accent: #f59e0b;
+  --accent-hover: #d97706;
+  --accent-soft: #fef3c7;
+  --accent-bg: rgba(245,158,11,0.08);
+  --link: #f59e0b;
+  --code-bg: #f6f9fc;
+  --code-text: #d97706;
+  --shadow-xs: 0 1px 1px rgba(60,66,87,0.07);
+  --shadow-sm: 0 1px 3px rgba(60,66,87,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 3px 6px rgba(60,66,87,0.08), 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-lg: 0 7px 14px rgba(60,66,87,0.1), 0 3px 6px rgba(0,0,0,0.05);
+  --radius: 8px;
+  --radius-sm: 5px;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Sohne", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", "Consolas", "Liberation Mono", Menlo, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-sans); background: var(--bg); color: var(--text); line-height: 1.65; font-size: 15px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; margin: 0; }
+.layout { display: grid; grid-template-columns: 264px minmax(0, 1fr) minmax(380px, 440px); max-width: 1680px; margin: 0 auto; min-height: 100vh; }
+nav.toc { position: sticky; top: 0; align-self: start; height: 100vh; overflow-y: auto; padding: 36px 22px; background: var(--bg-sidebar); border-right: 1px solid var(--border); font-size: 13.5px; }
+nav.toc h4 { margin: 0 0 14px; color: var(--muted); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; }
+nav.toc ul { list-style: none; padding: 0; margin: 0; }
+nav.toc li { margin: 1px 0; }
+nav.toc a { color: var(--text-secondary); text-decoration: none; display: block; padding: 5px 12px; border-radius: var(--radius-sm); font-weight: 500; transition: all 0.15s; }
+nav.toc a:hover { background: var(--bg); color: var(--accent); box-shadow: var(--shadow-xs); }
+nav.toc ul ul { padding-left: 12px; margin: 2px 0; border-left: 1px solid var(--border); }
+nav.toc ul ul a { color: var(--muted); font-size: 12.5px; font-weight: 400; padding: 3px 12px; }
+main { padding: 56px 72px 80px; max-width: 880px; background: var(--bg); }
+h1 { font-size: 32px; font-weight: 700; letter-spacing: -0.02em; color: var(--text); margin: 0 0 14px; line-height: 1.2; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.012em; margin: 56px 0 20px; line-height: 1.3; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+h3 { font-size: 17px; font-weight: 600; margin: 36px 0 14px; line-height: 1.4; display: flex; align-items: center; gap: 10px; }
+h3::before { content: ""; display: inline-block; width: 3px; height: 14px; background: var(--accent); border-radius: 2px; flex-shrink: 0; }
+p { margin: 12px 0; color: var(--text-secondary); }
+strong { color: var(--text); font-weight: 600; }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; }
+ul, ol { padding-left: 22px; margin: 10px 0; }
+li { margin: 5px 0; color: var(--text-secondary); }
+code { font-family: var(--font-mono); background: var(--code-bg); padding: 2px 7px; border-radius: 4px; font-size: 12.5px; color: var(--code-text); font-weight: 500; border: 1px solid var(--border-soft); }
+pre { background: var(--code-bg); padding: 16px 20px; border-radius: var(--radius); overflow-x: auto; font-size: 13px; line-height: 1.6; border: 1px solid var(--border-soft); box-shadow: var(--shadow-xs); color: var(--text); margin: 16px 0; }
+pre code { background: none; border: none; padding: 0; color: inherit; font-size: 13px; }
+table { border-collapse: separate; border-spacing: 0; width: 100%; margin: 20px 0; font-size: 13.5px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); background: var(--bg); border: 1px solid var(--border); }
+table th { background: var(--bg-sidebar); color: var(--text); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; padding: 11px 14px; text-align: left; border-bottom: 1px solid var(--border); vertical-align: top; }
+table td { padding: 11px 14px; border-bottom: 1px solid var(--border-soft); color: var(--text-secondary); vertical-align: top; }
+table tr:last-child td { border-bottom: none; }
+table tr:hover td { background: var(--bg-soft); }
+blockquote { margin: 20px 0; padding: 14px 18px; background: var(--accent-soft); border-left: 3px solid var(--accent); color: var(--text-secondary); border-radius: 0 var(--radius) var(--radius) 0; font-size: 14px; }
+blockquote.related { background: var(--bg-sidebar); border-left-color: var(--muted); color: var(--muted); font-size: 13px; }
+blockquote.callout { background: #fff8eb; border-left-color: #d97706; color: #78350f; }
+blockquote strong { color: inherit; }
+blockquote p { color: inherit; margin: 0; }
+.tag { display: inline-flex; align-items: center; padding: 3px 10px; font-size: 11px; font-weight: 600; border-radius: 12px; background: var(--accent-bg); color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; }
+.section-tag { display: inline-flex; align-items: center; background: var(--bg-sidebar); color: var(--text-secondary); padding: 3px 10px; font-size: 11px; font-weight: 600; border-radius: 12px; letter-spacing: 0.03em; text-transform: uppercase; border: 1px solid var(--border); }
+.meta-box { background: var(--bg-sidebar); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 24px; margin: 20px 0 28px; font-size: 13.5px; box-shadow: var(--shadow-sm); }
+.meta-box dl { display: grid; grid-template-columns: 120px 1fr; gap: 10px 20px; margin: 0; }
+.meta-box dt { color: var(--muted); font-weight: 500; font-size: 12.5px; }
+.meta-box dd { margin: 0; color: var(--text); }
+.source-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 26px; }
+.source-links a { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border: 1px solid rgba(245,158,11,0.2); border-radius: 999px; background: var(--accent-bg); color: var(--accent-hover); font-size: 13px; font-weight: 700; text-decoration: none; }
+.source-links a:hover { background: var(--accent-soft); text-decoration: none; }
+.checklist { list-style: none; padding-left: 0; }
+.checklist li { position: relative; padding-left: 28px; margin: 7px 0; color: var(--text-secondary); }
+.checklist li::before { content: ""; position: absolute; left: 0; top: 5px; width: 16px; height: 16px; border: 1.5px solid var(--border); border-radius: 4px; background: var(--bg); box-shadow: var(--shadow-xs); }
+hr { border: none; border-top: 1px solid var(--border); margin: 48px 0; }
+footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border); color: var(--muted); font-size: 12.5px; text-align: center; }
+.preview-pane { position: sticky; top: 0; height: 100vh; background: #f3f4f6; border-left: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 20px; }
+.preview-header { width: min(375px, calc(100vw - 48px)); display: flex; align-items: center; justify-content: space-between; gap: 12px; color: var(--text-secondary); font-size: 12.5px; font-weight: 600; }
+.preview-header a { color: var(--accent-hover); font-weight: 700; }
+.preview-frame { width: min(375px, calc(100vw - 48px)); height: min(812px, calc(100vh - 82px)); aspect-ratio: 375 / 812; background: white; border-radius: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 12px solid #111; overflow: hidden; position: relative; }
+.preview-frame iframe { width: 100%; height: 100%; border: none; }
+@media (max-width: 1200px) { .layout { grid-template-columns: 264px minmax(0, 1fr); } .preview-pane { display: none; } }
+@media (max-width: 960px) { .layout { grid-template-columns: 1fr; } nav.toc { display: none; } main { padding: 32px 24px; } }
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav class="toc">
+    <h4>目录</h4>
+    <ul>
+      <li><a href="#doc-info">0. 文档信息</a></li>
+      <li><a href="#business">一、业务定义</a>
+        <ul>
+          <li><a href="#section-1">1. 需求背景与目标</a></li>
+          <li><a href="#section-2">2. 玩法与业务规则</a></li>
+        </ul>
+      </li>
+      <li><a href="#design">二、设计</a>
+        <ul>
+          <li><a href="#section-3">3. UX 体验设计</a></li>
+          <li><a href="#section-4">4. UI 视觉设计</a></li>
+        </ul>
+      </li>
+      <li><a href="#engineering">三、研发工作范围</a>
+        <ul>
+          <li><a href="#section-5">5. 客户端工作</a></li>
+          <li><a href="#section-6">6. 服务端工作</a></li>
+        </ul>
+      </li>
+      <li><a href="#contract">四、协议与配置</a>
+        <ul>
+          <li><a href="#section-7">7. 接口约定</a></li>
+          <li><a href="#section-8">8. 配置表</a></li>
+        </ul>
+      </li>
+      <li><a href="#measurement">五、度量与验收</a>
+        <ul>
+          <li><a href="#section-9">9. 埋点</a></li>
+          <li><a href="#section-10">10. 测试与验收</a></li>
+          <li><a href="#section-11">11. 变更记录</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <main>
+    <h1>PRD：《夏日活动》<span class="tag">M2 · v1.0</span></h1>
+    <div class="source-links">
+      <a href="PRD-夏日活动-原版.html">查看原版 PRD</a>
+      <a href="夏日活动PRD.md">Markdown 源文件</a>
+      <a href="index.html" target="_blank" rel="noopener">单独打开 H5 原型</a>
+    </div>
+
+    <section id="doc-info">
+      <h2>0. 文档信息</h2>
+      <div class="meta-box">
+        <dl>
+          <dt>功能名</dt><dd>夏日刨冰小摊活动</dd>
+          <dt>适用版本</dt><dd>M2</dd>
+          <dt>文档状态</dt><dd>结构化 PRD</dd>
+          <dt>输入材料</dt><dd>夏日活动PRD.md、index.html H5 演示原型</dd>
+          <dt>原型位置</dt><dd>右侧手机框内嵌 <code>index.html</code></dd>
+          <dt>最后更新</dt><dd>2026-05-11</dd>
+        </dl>
+      </div>
+      <blockquote class="related">
+        本文档按 Cobibu PRD 五大块 11 章节重组：业务定义、设计、研发范围、协议配置、度量验收。右侧 H5 原型用于评审时同步查看页面动线与交互状态。
+      </blockquote>
+    </section>
+
+    <hr>
+
+    <section id="business">
+      <h2>一、业务定义 <span class="section-tag">产品 / 策划</span></h2>
+
+      <section id="section-1">
+        <h3>1. 需求背景与目标</h3>
+        <blockquote class="callout">
+          <p><strong>核心概念：</strong>做任务获得「冰块」 → 使用冰块制作刨冰 → 获得「冰块币」 → 双方共同累计进度 → 解锁免费家具与猫爪币家具购买资格。</p>
+        </blockquote>
+        <p>夏日活动是一个限时双人协作经营活动。活动期间，用户和自己的匹配对象一起帮助 Cobibu 经营刨冰小摊，通过完成产品内任务获得冰块，再消耗冰块制作刨冰并获得冰块币。</p>
+        <p>双方获得的冰块币会共同累计到同一个活动进度中。进度达到指定节点后，用户可以领取免费家具，并解锁对应阶段高级家具的猫爪币购买资格。</p>
+
+        <h3>1.1 业务目标</h3>
+        <table>
+          <thead><tr><th>目标</th><th>说明</th><th>衡量方式</th></tr></thead>
+          <tbody>
+            <tr><td>提升双人协作参与</td><td>通过共享冰块币进度，让双方一起推进活动目标</td><td>活动页进入率、双方参与率、催促点击率</td></tr>
+            <tr><td>拉动核心行为</td><td>任务围绕签到、你画我猜、装修小屋、装扮小猫等产品内行为设计</td><td>任务完成率、任务带动核心功能点击率</td></tr>
+            <tr><td>提供免费完成感</td><td>用户不付费也能获得 9 个基础家具，形成基础版刨冰小摊</td><td>免费奖励领取率、阶段节点达成率</td></tr>
+            <tr><td>承接高级货币消耗</td><td>通过 10 个猫爪币家具，将基础小摊升级为豪华限定场景</td><td>高级家具解锁率、购买率、一键补齐转化</td></tr>
+          </tbody>
+        </table>
+
+        <h3>1.2 活动范围</h3>
+        <table>
+          <thead><tr><th>范围</th><th>本期是否包含</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>活动主页面</td><td>包含</td><td>展示活动时间、盈利目标、双方冰块、制作刨冰入口、奖励进度</td></tr>
+            <tr><td>任务获取冰块</td><td>包含</td><td>每日任务和长线任务均可配置</td></tr>
+            <tr><td>冰块购买</td><td>包含</td><td>贝壳购买作为轻加速；猫爪币购买仅开放中包和大包建议</td></tr>
+            <tr><td>奖励领取与高级家具购买</td><td>包含</td><td>免费家具领取，高级家具解锁后用猫爪币购买</td></tr>
+            <tr><td>H5 演示原型</td><td>包含</td><td>右侧 iframe 内嵌当前目录 <code>index.html</code></td></tr>
+            <tr><td>IAP 验单与补单细节</td><td>不展开</td><td>沿用礼包 / IAP 支付链路 PRD，不在本文锁定协议实现</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="section-2">
+        <h3>2. 玩法与业务规则</h3>
+
+        <h3>2.1 核心链路</h3>
+        <table>
+          <thead><tr><th>步骤</th><th>用户行为</th><th>系统结果</th><th>备注</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>进入夏日刨冰小摊活动页</td><td>展示活动时间、当前冰块币进度、双方冰块数量</td><td>需要 Cobibu 绑定后参与</td></tr>
+            <tr><td>2</td><td>完成任务或购买冰块</td><td>获得个人冰块</td><td>冰块为个人资产，不共享</td></tr>
+            <tr><td>3</td><td>点击制作刨冰</td><td>消耗个人冰块，产出冰块币</td><td>可触发大胃王顾客 / 刨冰大佬惊喜产出</td></tr>
+            <tr><td>4</td><td>双方持续制作刨冰</td><td>冰块币累计到共享进度</td><td>双方冰块币进度共享</td></tr>
+            <tr><td>5</td><td>达到 500 / 1000 / 2000 / 3000 节点</td><td>领取免费家具并解锁高级家具购买资格</td><td>高级家具消耗付款用户个人猫爪币</td></tr>
+          </tbody>
+        </table>
+
+        <h3>2.2 活动规则</h3>
+        <table>
+          <thead><tr><th>规则</th><th>说明</th><th>边界情况</th></tr></thead>
+          <tbody>
+            <tr><td>活动周期</td><td>活动预期持续 18 天，原型展示文案为 8.1 - 8.18</td><td>最终时间以运营配置为准</td></tr>
+            <tr><td>参与条件</td><td>本次活动需要 Cobibu 绑定后才能参与</td><td>未绑定用户进入时应引导绑定或隐藏入口</td></tr>
+            <tr><td>冰块</td><td>活动消耗道具，可通过任务或购买获得</td><td>双方冰块不共享，谁获得谁使用</td></tr>
+            <tr><td>冰块币</td><td>活动进度道具，制作刨冰完成后获得</td><td>双方冰块币共享累计，用于解锁奖励</td></tr>
+            <tr><td>免费家具</td><td>达到冰块币进度后免费领取，共 9 个</td><td>组成基础版刨冰小摊</td></tr>
+            <tr><td>猫爪币家具</td><td>达到进度后解锁购买资格，共 10 个</td><td>购买成功后进入情侣共享空间资产</td></tr>
+          </tbody>
+        </table>
+
+        <h3>2.3 数值口径</h3>
+        <table>
+          <thead><tr><th>模块</th><th>推荐数值</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>总目标</td><td>3000 冰块币</td><td>活动主进度目标</td></tr>
+            <tr><td>冰块币产出</td><td>平均 1 冰块 = 2 冰块币</td><td>保留随机惊喜机制</td></tr>
+            <tr><td>每人每日免费冰块</td><td>75-90 个</td><td>取决于双方是否都参与活动任务</td></tr>
+            <tr><td>双人正常完成时间</td><td>7-9 天</td><td>18 天活动中前期有反馈、中期拉留存、后期留付费补齐空间</td></tr>
+            <tr><td>高级家具总价</td><td>3600 猫爪币</td><td>活动高级家具升级价值，约 $6</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+
+    <hr>
+
+    <section id="design">
+      <h2>二、设计 <span class="section-tag">UX / UI</span></h2>
+
+      <section id="section-3">
+        <h3>3. UX 体验设计</h3>
+
+        <h3>3.1 入口清单</h3>
+        <table>
+          <thead><tr><th>来源</th><th>触发场景</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>活动运营入口</td><td>活动上线期间展示夏日刨冰入口</td><td>点击进入活动主页面，默认展示制作区和奖励进度</td></tr>
+            <tr><td>任务中心</td><td>存在未领取冰块任务奖励</td><td>可跳转活动页并打开任务弹层</td></tr>
+            <tr><td>活动页获取冰块按钮</td><td>用户冰块不足或想补充冰块</td><td>打开任务 / 购买冰块入口</td></tr>
+            <tr><td>高级家具购买入口</td><td>进度达标后用户查看高级家具</td><td>展示已解锁未购买、已拥有、未解锁状态</td></tr>
+          </tbody>
+        </table>
+
+        <h3>3.2 页面核心流程</h3>
+        <table>
+          <thead><tr><th>场景</th><th>进入后默认定位</th><th>携带上下文</th><th>成功后回流</th></tr></thead>
+          <tbody>
+            <tr><td>首次进入活动</td><td>活动主制作区</td><td><code>source_surface=activity_entry</code></td><td>停留活动页，显示当前目标和双方冰块</td></tr>
+            <tr><td>获取冰块</td><td>任务弹层 / 冰块购买弹层</td><td><code>source_surface=summer_task_button</code></td><td>关闭弹层后刷新个人冰块余额</td></tr>
+            <tr><td>制作刨冰</td><td>主按钮区</td><td><code>action=make_shaved_ice</code></td><td>播放制作反馈，刷新个人冰块和共享冰块币进度</td></tr>
+            <tr><td>领取阶段奖励</td><td>奖励进度节点</td><td><code>reward_node</code></td><td>领取后刷新节点状态和背包 / 家具拥有态</td></tr>
+            <tr><td>购买高级家具</td><td>高级家具弹层</td><td><code>item_id</code>、<code>reward_node</code></td><td>购买成功后返回活动页并刷新家具拥有态</td></tr>
+          </tbody>
+        </table>
+
+        <h3>3.3 状态与异常</h3>
+        <table>
+          <thead><tr><th>状态</th><th>展示 / 行为</th><th>备注</th></tr></thead>
+          <tbody>
+            <tr><td>冰块不足</td><td>制作按钮置灰或点击后引导获取冰块</td><td>不允许本地负数扣减</td></tr>
+            <tr><td>制作中</td><td>小摊轻微动效，按钮进入不可重复点击态</td><td>避免连续点击重复扣冰块</td></tr>
+            <tr><td>可催促 TA</td><td>双方冰块区域展示「催一催」</td><td>当天已催促后展示「已催促」</td></tr>
+            <tr><td>奖励未解锁</td><td>高级家具展示锁态和达成条件</td><td>文案为「达到 X 冰块币后解锁购买」</td></tr>
+            <tr><td>已完成 3000 目标</td><td>弱化继续购买冰块推荐，突出奖励领取和高级家具补齐</td><td>避免用户误购加速道具</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="section-4">
+        <h3>4. UI 视觉设计</h3>
+        <blockquote class="related">
+          右侧内嵌 H5 原型为当前视觉参考：手机框内展示夏日刨冰小摊主界面、制作按钮、双方冰块、奖励进度等关键状态。
+        </blockquote>
+
+        <h3>4.1 页面结构</h3>
+        <table>
+          <thead><tr><th>区域</th><th>元素</th><th>设计要求</th></tr></thead>
+          <tbody>
+            <tr><td>顶部</td><td>返回、标题、活动时间、规则入口</td><td>标题突出夏日主题，规则入口清晰可点</td></tr>
+            <tr><td>目标卡</td><td>小摊盈利目标 0 / 3000</td><td>固定在首屏可见位置，强化活动主目标</td></tr>
+            <tr><td>小摊场景</td><td>Cobibu / 小熊、小摊、刨冰反馈</td><td>制作时有动效和产出反馈</td></tr>
+            <tr><td>双方状态</td><td>我的冰块、TA 的冰块、催促按钮</td><td>明确双方冰块不共享，但共同参与活动</td></tr>
+            <tr><td>主行动</td><td>制作刨冰按钮</td><td>首屏主 CTA，冰块不足时进入不可用或引导态</td></tr>
+            <tr><td>奖励进度</td><td>500 / 1000 / 2000 / 3000 节点</td><td>免费奖励和高级家具并列展示，未解锁状态清楚</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4.2 视觉区分</h3>
+        <table>
+          <thead><tr><th>对象</th><th>图标 / 颜色 / 文案</th><th>注意事项</th></tr></thead>
+          <tbody>
+            <tr><td>冰块</td><td>蓝色方块 / 冰块图标</td><td>表现为个人消耗道具，不要和冰块币混淆</td></tr>
+            <tr><td>冰块币</td><td>金币 / 橙黄色数值</td><td>表现为共享进度道具，绑定 3000 主目标</td></tr>
+            <tr><td>免费家具</td><td>灰 / 绿领取态</td><td>强调达成即可获得</td></tr>
+            <tr><td>猫爪币家具</td><td>蓝色进阶标签 / 锁态</td><td>强调进度解锁购买资格，不是直接购买进度</td></tr>
+            <tr><td>猫爪币</td><td>沿用项目付费货币图标</td><td>与冰块、冰块币做明显区分，避免误支付</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+
+    <hr>
+
+    <section id="engineering">
+      <h2>三、研发工作范围 <span class="section-tag">客户端 / 服务端</span></h2>
+
+      <section id="section-5">
+        <h3>5. 客户端工作</h3>
+        <table>
+          <thead><tr><th>模块</th><th>工作项</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>活动入口</td><td>新增夏日活动入口与活动页跳转</td><td>未绑定 Cobibu 时按产品规则引导绑定或隐藏入口</td></tr>
+            <tr><td>活动主页面</td><td>实现标题区、目标卡、小摊场景、双方冰块、制作按钮、奖励进度</td><td>视觉以 H5 原型为参考，按客户端组件规范落地</td></tr>
+            <tr><td>任务弹层</td><td>展示每日任务、长线任务、奖励冰块、领取状态</td><td>完成任务后刷新个人冰块余额</td></tr>
+            <tr><td>制作刨冰</td><td>处理按钮状态、制作动效、产出反馈</td><td>防重复点击；以服务端返回结果为准刷新冰块和冰块币</td></tr>
+            <tr><td>奖励进度</td><td>展示节点、免费奖励、高级家具锁态 / 可购买 / 已拥有状态</td><td>支持 500、1000、2000、3000 四档节点</td></tr>
+            <tr><td>购买与回流</td><td>高级家具购买、冰块购买、猫爪币余额不足跳转</td><td>充值成功或购买成功后回流活动页并刷新状态</td></tr>
+            <tr><td>原型资源</td><td>评审页右侧内嵌 <code>index.html</code></td><td>PRD HTML 仅用于评审展示，不作为客户端运行代码</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="section-6">
+        <h3>6. 服务端工作</h3>
+        <table>
+          <thead><tr><th>模块</th><th>工作项</th><th>说明</th></tr></thead>
+          <tbody>
+            <tr><td>活动状态</td><td>下发活动时间、参与资格、总目标、当前共享冰块币进度</td><td>按 <code>space_id</code> 聚合双方共享进度</td></tr>
+            <tr><td>个人冰块账户</td><td>记录每个用户的冰块余额、获取、消耗流水</td><td>按 <code>uid</code> 归属，不与对方共享</td></tr>
+            <tr><td>制作结算</td><td>校验冰块余额、扣减冰块、计算冰块币产出</td><td>随机产出普通顾客 / 大胃王顾客 / 刨冰大佬结果</td></tr>
+            <tr><td>任务系统</td><td>识别任务完成、发放冰块、记录每日领取状态</td><td>每日任务需按自然日重置；长线任务记录累计进度</td></tr>
+            <tr><td>奖励系统</td><td>按节点发放免费家具，记录领取状态</td><td>奖励进入情侣共享空间资产</td></tr>
+            <tr><td>高级家具购买</td><td>校验节点解锁、猫爪币余额、家具拥有态并扣费</td><td>用 <code>space_id + item_id</code> 做幂等，避免双方同时购买重复扣款</td></tr>
+            <tr><td>配置读取</td><td>读取活动数值、任务、节点、家具、购买限制</td><td>支持运营配置活动周期、奖励、价格和限购次数</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+
+    <hr>
+
+    <section id="contract">
+      <h2>四、协议与配置 <span class="section-tag">双方共同确认</span></h2>
+
+      <section id="section-7">
+        <h3>7. 接口约定</h3>
+        <table>
+          <thead><tr><th>用途</th><th>方向</th><th>触发时机</th><th>关键字段</th></tr></thead>
+          <tbody>
+            <tr><td>获取活动首页数据</td><td>客户端 → 服务端</td><td>进入活动页、回流活动页</td><td><code>activity_id</code>、<code>uid</code>、<code>space_id</code></td></tr>
+            <tr><td>领取任务奖励</td><td>客户端 → 服务端</td><td>用户点击领取冰块</td><td><code>task_id</code>、<code>reward_cubes</code>、<code>claim_status</code></td></tr>
+            <tr><td>制作刨冰</td><td>客户端 → 服务端</td><td>用户点击制作刨冰</td><td><code>cost_cubes</code>、<code>earned_coin</code>、<code>customer_type</code></td></tr>
+            <tr><td>领取节点奖励</td><td>客户端 → 服务端</td><td>冰块币达到节点后点击领取</td><td><code>reward_node</code>、<code>free_item_list</code>、<code>claim_status</code></td></tr>
+            <tr><td>购买高级家具</td><td>客户端 → 服务端</td><td>用户点击购买高级家具</td><td><code>item_id</code>、<code>price_cat_paw</code>、<code>order_id</code></td></tr>
+            <tr><td>催促 TA</td><td>客户端 → 服务端</td><td>用户点击「催一催」</td><td><code>target_uid</code>、<code>urge_date</code>、<code>cooldown_status</code></td></tr>
+          </tbody>
+        </table>
+        <blockquote class="related">
+          具体 Code / proto / 字段命名由技术评审确认；PRD 只锁定用途、触发时机和关键数据。
+        </blockquote>
+      </section>
+
+      <section id="section-8">
+        <h3>8. 配置表</h3>
+
+        <h3>8.1 配置路径与对象</h3>
+        <table>
+          <thead><tr><th>配置</th><th>建议路径</th><th>用途</th><th>目标端</th></tr></thead>
+          <tbody>
+            <tr><td>活动基础配置</td><td><code>Tools/Table/Datas/summer_shaved_ice_activity.xlsx</code></td><td>活动时间、总目标、入口开关</td><td>客户端 / 服务端</td></tr>
+            <tr><td>任务配置</td><td><code>Tools/Table/Datas/summer_shaved_ice_task.xlsx</code></td><td>每日任务、长线任务、冰块奖励</td><td>客户端 / 服务端</td></tr>
+            <tr><td>奖励节点配置</td><td><code>Tools/Table/Datas/summer_shaved_ice_reward.xlsx</code></td><td>500 / 1000 / 2000 / 3000 节点奖励</td><td>客户端 / 服务端</td></tr>
+            <tr><td>冰块购买配置</td><td><code>Tools/Table/Datas/summer_shaved_ice_cube_pack.xlsx</code></td><td>贝壳 / 猫爪币购买冰块包</td><td>客户端 / 服务端</td></tr>
+          </tbody>
+        </table>
+
+        <h3>8.2 首版任务数据</h3>
+        <table>
+          <thead><tr><th>任务</th><th>奖励冰块</th><th>目的</th></tr></thead>
+          <tbody>
+            <tr><td>每日签到</td><td>15</td><td>拉每日活跃</td></tr>
+            <tr><td>两人参与活动</td><td>15</td><td>拉双方活跃</td></tr>
+            <tr><td>发起你画我猜</td><td>15</td><td>拉互动玩法</td></tr>
+            <tr><td>装修小屋</td><td>15</td><td>拉小屋功能使用</td></tr>
+            <tr><td>装扮小猫</td><td>15</td><td>拉养成装扮行为</td></tr>
+            <tr><td>完成任意 1 个任务</td><td>15</td><td>新手引导 / 额外激励</td></tr>
+            <tr><td>累计签到 7 天</td><td>70</td><td>拉 7 日留存</td></tr>
+          </tbody>
+        </table>
+
+        <h3>8.3 首版奖励与付费数据</h3>
+        <table>
+          <thead><tr><th>冰块币进度</th><th>免费奖励</th><th>解锁猫爪币家具</th><th>对应猫爪币总价</th></tr></thead>
+          <tbody>
+            <tr><td>500</td><td>免费家具 2 个</td><td>slot16、slot17</td><td>300</td></tr>
+            <tr><td>1000</td><td>免费家具 2 个</td><td>slot7、slot8</td><td>600</td></tr>
+            <tr><td>2000</td><td>免费家具 2 个</td><td>slot10、slot12、slot15</td><td>900</td></tr>
+            <tr><td>3000</td><td>免费家具 3 个</td><td>slot5、slot6、slot14</td><td>1800</td></tr>
+            <tr><td><strong>合计</strong></td><td><strong>免费家具 9 个</strong></td><td><strong>猫爪币家具 10 个</strong></td><td><strong>3600</strong></td></tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+
+    <hr>
+
+    <section id="measurement">
+      <h2>五、度量与验收</h2>
+
+      <section id="section-9">
+        <h3>9. 埋点</h3>
+        <table>
+          <thead><tr><th>事件名</th><th>触发时机</th><th>关键参数</th></tr></thead>
+          <tbody>
+            <tr><td><code>summer_activity_view</code></td><td>活动页曝光</td><td><code>source_surface</code>、<code>activity_id</code>、<code>coin_progress</code></td></tr>
+            <tr><td><code>summer_task_panel_click</code></td><td>点击获取冰块</td><td><code>source_surface</code>、<code>available_task_count</code></td></tr>
+            <tr><td><code>summer_task_reward_claim</code></td><td>领取任务冰块</td><td><code>task_id</code>、<code>reward_cubes</code>、<code>claim_result</code></td></tr>
+            <tr><td><code>summer_make_ice_click</code></td><td>点击制作刨冰</td><td><code>my_cubes</code>、<code>cost_cubes</code>、<code>return_target</code></td></tr>
+            <tr><td><code>summer_make_ice_result</code></td><td>制作结算完成</td><td><code>earned_coin</code>、<code>customer_type</code>、<code>coin_progress_after</code></td></tr>
+            <tr><td><code>summer_reward_claim</code></td><td>领取阶段奖励</td><td><code>reward_node</code>、<code>free_item_count</code>、<code>return_target</code></td></tr>
+            <tr><td><code>summer_paid_item_buy</code></td><td>购买高级家具</td><td><code>item_id</code>、<code>price_cat_paw</code>、<code>buy_result</code>、<code>return_target</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="section-10">
+        <h3>10. 测试与验收</h3>
+
+        <h3>10.1 功能验收</h3>
+        <ul class="checklist">
+          <li>活动入口在配置时间内正确展示，未到活动时间或活动结束后按配置隐藏或展示结束态。</li>
+          <li>未绑定 Cobibu 用户不能直接参与活动，并能看到正确绑定引导。</li>
+          <li>完成每日任务后可以领取冰块，重复领取被服务端拦截。</li>
+          <li>制作刨冰会扣减个人冰块，并增加双方共享冰块币进度。</li>
+          <li>普通顾客、大胃王顾客、刨冰大佬产出区间符合配置。</li>
+          <li>达到 500、1000、2000、3000 节点后，可领取对应免费家具并解锁高级家具购买资格。</li>
+        </ul>
+
+        <h3>10.2 跨页回流刷新</h3>
+        <ul class="checklist">
+          <li>从任务弹层领取冰块后，关闭弹层回到活动页，个人冰块余额立即刷新。</li>
+          <li>购买冰块成功后，回到活动页刷新个人冰块余额和购买次数限制。</li>
+          <li>高级家具购买成功后，回到奖励进度区刷新已拥有状态。</li>
+          <li>猫爪币余额不足跳转充值后，回流活动页或家具购买弹层时刷新猫爪币余额。</li>
+          <li>双方其中一人制作刨冰后，另一人重进活动页能看到共享冰块币进度更新。</li>
+        </ul>
+
+        <h3>10.3 资产 / 账户独立性</h3>
+        <ul class="checklist">
+          <li>A 的冰块变化不影响 B 的个人冰块余额。</li>
+          <li>A 与 B 获得的冰块币都累计到同一个共享活动进度。</li>
+          <li>猫爪币购买高级家具只扣付款用户个人猫爪币。</li>
+          <li>高级家具购买成功后进入情侣共享空间资产，双方都能看到拥有态。</li>
+          <li>双方同时购买同一高级家具时，服务端幂等处理，不重复扣款。</li>
+          <li>冰块、冰块币、猫爪币在 UI 图标、颜色、文案上保持可区分。</li>
+        </ul>
+      </section>
+
+      <section id="section-11">
+        <h3>11. 变更记录</h3>
+        <table>
+          <thead><tr><th>日期</th><th>版本</th><th>变更</th><th>作者</th></tr></thead>
+          <tbody>
+            <tr><td>2026-05-11</td><td>v1.0</td><td>按五大块 11 章节重组夏日活动 PRD，并内嵌 H5 演示原型</td><td>Codex</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </section>
+
+    <footer>PRD template for Cobibu product documents</footer>
+  </main>
+
+  <div class="preview-pane">
+    <div class="preview-header">
+      <span>H5 演示原型</span>
+      <a href="index.html" target="_blank" rel="noopener">单独打开</a>
+    </div>
+    <div class="preview-frame">
+      <iframe src="index.html" title="夏日刨冰小摊 H5 演示原型"></iframe>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>原版 PRD：《夏日活动》</title>
+<style>
+:root {
+  --bg: #ffffff;
+  --bg-sidebar: #f6f9fc;
+  --text: #1a1f36;
+  --text-secondary: #425466;
+  --muted: #697386;
+  --border: #e3e8ee;
+  --accent: #f59e0b;
+  --code-bg: #f6f9fc;
+  --code-text: #d97706;
+  --radius: 8px;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--font-sans); color: var(--text); line-height: 1.7; font-size: 15px; background: var(--bg); }
+.layout { display: grid; grid-template-columns: 264px minmax(0, 880px); max-width: 1180px; min-height: 100vh; margin: 0 auto; }
+nav { position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 36px 22px; background: var(--bg-sidebar); border-right: 1px solid var(--border); }
+nav h4 { margin: 0 0 14px; color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+nav a { display: block; padding: 5px 12px; color: var(--text-secondary); text-decoration: none; border-radius: 5px; font-weight: 500; font-size: 13px; }
+nav a:hover { color: var(--accent); background: #fff; }
+main { padding: 56px 72px 80px; }
+h1 { margin: 0 0 10px; font-size: 32px; line-height: 1.2; }
+h2 { margin: 54px 0 20px; font-size: 23px; line-height: 1.3; }
+h3 { margin: 34px 0 14px; font-size: 17px; display: flex; gap: 10px; align-items: center; }
+h3::before { content: ""; width: 3px; height: 14px; background: var(--accent); border-radius: 2px; }
+h4 { margin: 24px 0 10px; font-size: 15px; }
+p, li { color: var(--text-secondary); }
+strong { color: var(--text); }
+code { font-family: var(--font-mono); background: var(--code-bg); color: var(--code-text); padding: 2px 7px; border: 1px solid #eef1f6; border-radius: 4px; font-size: 12.5px; }
+table { border-collapse: separate; border-spacing: 0; width: 100%; margin: 20px 0; font-size: 13.5px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); box-shadow: 0 1px 3px rgba(60,66,87,.08); }
+th { background: var(--bg-sidebar); color: var(--text); font-size: 12px; text-align: left; padding: 11px 14px; border-bottom: 1px solid var(--border); }
+td { padding: 11px 14px; border-bottom: 1px solid #eef1f6; color: var(--text-secondary); vertical-align: top; }
+tr:last-child td { border-bottom: none; }
+blockquote { margin: 20px 0; padding: 14px 18px; border-left: 3px solid var(--accent); border-radius: 0 var(--radius) var(--radius) 0; background: #f6f9fc; color: var(--text-secondary); }
+blockquote p { margin: 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 42px 0; }
+.top-links { margin: 18px 0 26px; display: flex; gap: 12px; flex-wrap: wrap; }
+.top-links a { color: #d97706; background: rgba(245,158,11,.08); border: 1px solid rgba(245,158,11,.2); border-radius: 999px; padding: 7px 12px; text-decoration: none; font-weight: 700; font-size: 13px; }
+@media (max-width: 960px) { .layout { grid-template-columns: 1fr; } nav { display: none; } main { padding: 32px 24px; } }
+</style>
+</head>
+<body>
+<div class="layout">
+  <nav>
+    <h4>原版目录</h4>
+    <a href="#section-1">一、活动是什么</a>
+    <a href="#section-2">二、活动核心链路</a>
+    <a href="#section-3">三、活动时间</a>
+    <a href="#section-4">四、活动规则</a>
+    <a href="#section-5">五、任务与冰块获得数值</a>
+    <a href="#section-6">六、每日可获得冰块估算</a>
+    <a href="#section-7">七、冰块购买数值</a>
+    <a href="#section-8">八、冰块与冰块币产出</a>
+    <a href="#section-9">九、活动进度与奖励数值</a>
+    <a href="#section-10">十、完成天数估算</a>
+    <a href="#section-11">十一、19 个家具槽位分配</a>
+    <a href="#section-12">十二、猫爪币家具定价建议</a>
+    <a href="#section-13">十三、推荐用户规则文案</a>
+    <a href="#section-14">十四、最终推荐方案总结</a>
+  </nav>
+  <main>
+    <h1>原版 PRD：《夏日活动》</h1>
+    <div class="top-links">
+      <a href="PRD-夏日活动.html">返回结构化 PRD + H5 原型</a>
+      <a href="夏日活动PRD.md">查看 Markdown 源文件</a>
+    </div>
+    <p>下面这版可以作为你们内部 PRD / 活动说明的基础稿。</p>
+<p>我会把核心概念统一成：</p>
+<blockquote class="related"><p><strong>做任务获得「冰块」 → 使用冰块制作刨冰 → 获得「冰块币」 → 双方共同累计进度 → 解锁免费家具与付费家具购买资格。</strong></p></blockquote>
+<hr>
+<section id="section-1">
+<h2>一、活动是什么</h2>
+<p>这是一个 <strong>限时双人协作经营活动</strong>。</p>
+<p>活动期间，用户和自己的匹配对象一起帮助 Cobibu 经营刨冰小摊。用户通过完成活动任务获得 <strong>冰块</strong>，再消耗冰块制作刨冰。刨冰完成后，用户可获得 <strong>冰块币</strong>。</p>
+<p>双方获得的冰块币会共同累计到同一个活动进度中。累计进度达到指定节点后，可以解锁对应奖励。</p>
+<p>活动奖励分为两类：</p>
+<table>
+<thead><tr><th>奖励类型</th><th>获取方式</th><th>作用</th></tr></thead>
+<tbody>
+<tr><td>免费家具</td><td>达到冰块币进度后免费领取</td><td>保证活动参与感和完成感</td></tr>
+<tr><td>高级家具</td><td>达到进度后使用猫爪币购买</td><td>提升套装完整度，承接高级货币消耗</td></tr>
+</tbody>
+</table>
+<p>本次活动总共有 <strong>19 个家具槽位</strong>：</p>
+<table>
+<thead><tr><th>类型</th><th>数量</th><th>定位</th></tr></thead>
+<tbody>
+<tr><td>免费家具</td><td>9 个</td><td>组成基础版刨冰小摊</td></tr>
+<tr><td>猫爪币家具</td><td>10 个</td><td>升级为完整豪华版刨冰小摊</td></tr>
+</tbody>
+</table>
+<p>一句话概括：</p>
+<blockquote class="related"><p>用户不花猫爪币，也能通过参与活动获得基础刨冰小摊；高意愿用户可以使用猫爪币补齐高级家具，获得完整限定套装。</p></blockquote>
+<hr>
+<section id="section-2">
+<h2>二、活动核心链路</h2>
+<p>活动玩法可以拆成 5 步：</p>
+<table>
+<thead><tr><th>步骤</th><th>用户行为</th><th>产出</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>完成任务</td><td>获得冰块</td></tr>
+<tr><td>2</td><td>使用冰块做刨冰</td><td>开始制作倒计时</td></tr>
+<tr><td>3</td><td>刨冰制作完成</td><td>获得冰块币</td></tr>
+<tr><td>4</td><td>双方累计冰块币</td><td>推进共同进度</td></tr>
+<tr><td>5</td><td>达到进度节点</td><td>领取免费家具 / 解锁高级家具购买资格</td></tr>
+</tbody>
+</table>
+<p>用户理解路径：</p>
+<blockquote class="related"><p>做任务拿冰块 → 做刨冰赚冰块币 → 和 TA 一起解锁刨冰小摊家具。</p></blockquote>
+<hr>
+<section id="section-3">
+<h2>三、活动时间</h2>
+<p>活动时间建议沿用竞品节奏：</p>
+<blockquote class="related"><p>活动预期共持续 <strong>18 天</strong>。</p></blockquote>
+<p>参与条件：</p>
+<blockquote class="related"><p>本次活动需要 Cobibu 绑定后才能参与。</p></blockquote>
+<hr>
+<section id="section-4">
+<h2>四、活动规则</h2>
+<h3>1. 冰块规则</h3>
+<p><strong>冰块</strong> 是活动消耗道具。</p>
+<p>用户可通过完成活动任务或使用货币购买获得冰块。冰块用于制作刨冰，每次制作都会消耗一定数量的冰块。</p>
+<p>双方的冰块数量 <strong>不共享</strong>。</p>
+<p>也就是说：</p>
+<blockquote class="related"><p>你的冰块只能你自己使用，TA 的冰块只能 TA 自己使用。</p></blockquote>
+<hr>
+<h3>2. 冰块币规则</h3>
+<p><strong>冰块币</strong> 是活动进度道具。</p>
+<p>用户制作刨冰完成后，可以获得冰块币。双方获得的冰块币会累计到同一个进度条中，用于共同解锁奖励。</p>
+<p>双方冰块币进度 <strong>共享</strong>。</p>
+<p>也就是说：</p>
+<blockquote class="related"><p>你和 TA 获得的冰块币会共同累计，一起解锁奖励进度。</p></blockquote>
+<hr>
+<h3>3. 双人协作规则</h3>
+<table>
+<thead><tr><th>内容</th><th>是否共享</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>冰块数量</td><td>不共享</td><td>每个人自己获取、自己使用</td></tr>
+<tr><td>做刨冰行为</td><td>不共享</td><td>谁使用冰块，谁触发制作</td></tr>
+<tr><td>冰块币进度</td><td>共享</td><td>双方共同累计</td></tr>
+<tr><td>奖励进度</td><td>共享</td><td>达到节点后双方共同解锁</td></tr>
+</tbody>
+</table>
+<p>推荐前端展示文案：</p>
+<blockquote class="related"><p>你的冰块仅你可使用；你们获得的冰块币会共同累计，一起解锁奖励。</p></blockquote>
+<hr>
+<section id="section-5">
+<h2>五、任务与冰块获得数值</h2>
+<p>在没有 IAA 广告的情况下，任务建议全部改为产品内核心行为。</p>
+<h3>每日任务配置</h3>
+<table>
+<thead><tr><th>任务</th><th>奖励冰块</th><th>目的</th></tr></thead>
+<tbody>
+<tr><td>每日签到</td><td>15 冰块</td><td>拉每日活跃</td></tr>
+<tr><td>两人参与活动</td><td>15 冰块</td><td>拉双方活跃</td></tr>
+<tr><td>发起你画我猜</td><td>15 冰块</td><td>拉互动玩法</td></tr>
+<tr><td>装修小屋</td><td>15 冰块</td><td>拉小屋功能使用</td></tr>
+<tr><td>装扮小猫</td><td>15 冰块</td><td>拉养成装扮行为</td></tr>
+<tr><td>完成任意 1 个任务</td><td>15 冰块</td><td>新手引导 / 额外激励</td></tr>
+</tbody>
+</table>
+<h3>长线任务配置</h3>
+<table>
+<thead><tr><th>任务</th><th>奖励冰块</th><th>目的</th></tr></thead>
+<tbody>
+<tr><td>累计签到 7 天</td><td>70 冰块</td><td>拉 7 日留存</td></tr>
+</tbody>
+</table>
+<hr>
+<section id="section-6">
+<h2>六、每日可获得冰块估算</h2>
+<p>如果用户每天完成全部任务：</p>
+<h3>单人每日可获得</h3>
+<p>不考虑“两人参与活动”时：</p>
+<blockquote class="related"><p>15 × 5 = <strong>75 冰块 / 天</strong></p></blockquote>
+<p>如果双方都参与活动：</p>
+<blockquote class="related"><p>15 × 6 = <strong>90 冰块 / 人 / 天</strong></p></blockquote>
+<h3>双人每日总产出</h3>
+<p>双方都参与并完成任务时：</p>
+<blockquote class="related"><p>90 × 2 = <strong>180 冰块 / 天</strong></p></blockquote>
+<p>第 7 天，如果双方都完成累计签到，还可额外获得：</p>
+<blockquote class="related"><p>70 × 2 = <strong>140 冰块</strong></p></blockquote>
+<hr>
+<section id="section-7">
+<h2>七、冰块购买数值</h2>
+<p>可以保留竞品的轻购买结构，把“传单”替换成“冰块”。</p>
+<p>注意：当前项目里的猫爪币已经按 <strong>大面额付费货币</strong> 设计，现有锚点为：</p>
+<blockquote class="related"><p><strong>600 猫爪币 ≈ $1 ≈ NT$30 / ₩1,500 / ¥150</strong></p></blockquote>
+<p>因此这里不能继续沿用竞品中 <code>1 / 5 / 9</code> 这种小面额付费货币价格。冰块购买只是活动加速，不应成为猫爪币主消耗；猫爪币的主要消耗仍应放在高级家具购买上。</p>
+<table>
+<thead><tr><th>冰块包</th><th>获得冰块</th><th>贝壳价格</th><th>猫爪币价格</th></tr></thead>
+<tbody>
+<tr><td>小包</td><td>10 冰块</td><td>30 贝壳</td><td>不建议开放</td></tr>
+<tr><td>中包</td><td>50 冰块</td><td>150 贝壳</td><td>180 猫爪币</td></tr>
+<tr><td>大包</td><td>100 冰块</td><td>300 贝壳</td><td>300 猫爪币</td></tr>
+</tbody>
+</table>
+<p>数值逻辑：</p>
+<table>
+<thead><tr><th>货币</th><th>单价逻辑</th></tr></thead>
+<tbody>
+<tr><td>贝壳</td><td>固定 3 贝壳 / 1 冰块</td></tr>
+<tr><td>猫爪币</td><td>仅开放中包和大包，降低碎片化付费感；大包约 3 猫爪币 / 1 冰块</td></tr>
+</tbody>
+</table>
+<p>这个设计的作用是：</p>
+<ul><li>免费用户可以靠任务参与。</li><li>轻度用户可以用贝壳补一点进度。</li><li>高意愿用户可以用猫爪币加速，但不会用极低价格直接买穿活动。</li><li>大包略优于中包，鼓励临门一脚补进度。</li></ul>
+<p>补充限制：</p>
+<ul><li>冰块包每日购买次数建议可配置，V1 可先限制为每人每日每档 <code>3</code> 次。</li><li>猫爪币购买冰块只影响个人冰块余额，不直接增加共享冰块币进度。</li><li>若用户已经达成 3000 冰块币总进度，仍可购买冰块但前台需弱化推荐，避免误购。</li></ul>
+<hr>
+<section id="section-8">
+<h2>八、冰块与冰块币产出</h2>
+<p>建议设定：</p>
+<blockquote class="related"><p><strong>1 个冰块平均产出 2 个冰块币。</strong></p></blockquote>
+<p>同时保留随机惊喜机制：</p>
+<blockquote class="related"><p>做刨冰时，有机会遇到“大胃王顾客”或“刨冰大佬”，获得更多冰块币奖励。</p></blockquote>
+<p>可以设计为：</p>
+<table>
+<thead><tr><th>顾客类型</th><th>冰块币产出</th></tr></thead>
+<tbody>
+<tr><td>普通顾客</td><td>2 冰块币 / 冰块</td></tr>
+<tr><td>大胃王顾客</td><td>4-6 冰块币 / 冰块</td></tr>
+<tr><td>刨冰大佬</td><td>8-10 冰块币 / 冰块</td></tr>
+</tbody>
+</table>
+<p>对用户的表述不用太复杂，可以写成：</p>
+<blockquote class="related"><p>制作刨冰时，有机会遇到刨冰大佬，获得更多冰块币。</p></blockquote>
+<hr>
+<section id="section-9">
+<h2>九、活动进度与奖励数值</h2>
+<p>活动总目标建议：</p>
+<blockquote class="related"><p><strong>3000 冰块币</strong></p></blockquote>
+<p>阶段节点：</p>
+<table>
+<thead><tr><th>冰块币进度</th><th>免费奖励</th><th>高级家具解锁</th></tr></thead>
+<tbody>
+<tr><td>500</td><td>免费家具 2 个</td><td>解锁 2 个猫爪币家具购买资格</td></tr>
+<tr><td>1000</td><td>免费家具 2 个</td><td>解锁 2 个猫爪币家具购买资格</td></tr>
+<tr><td>2000</td><td>免费家具 2 个</td><td>解锁 3 个猫爪币家具购买资格</td></tr>
+<tr><td>3000</td><td>免费家具 3 个</td><td>解锁 3 个猫爪币家具购买资格</td></tr>
+</tbody>
+</table>
+<p>最终合计：</p>
+<table>
+<thead><tr><th>类型</th><th>数量</th></tr></thead>
+<tbody>
+<tr><td>免费家具</td><td>9 个</td></tr>
+<tr><td>猫爪币家具</td><td>10 个</td></tr>
+<tr><td>总家具槽位</td><td>19 个</td></tr>
+</tbody>
+</table>
+<p>这样用户每个阶段都有明确收获，不会觉得只有最后才有奖励。</p>
+<hr>
+<section id="section-10">
+<h2>十、完成天数估算</h2>
+<p>按推荐数值计算：</p>
+<ul><li>双人每日总冰块：180</li><li>1 冰块平均产出：2 冰块币</li><li>双人每日冰块币产出：360</li><li>总目标：3000 冰块币</li></ul>
+<p>理论完成时间：</p>
+<blockquote class="related"><p>3000 ÷ 360 ≈ <strong>8.3 天</strong></p></blockquote>
+<p>第 7 天双方还有累计签到奖励：</p>
+<ul><li>额外 140 冰块</li><li>可额外产出约 280 冰块币</li></ul>
+<p>所以实际双人正常参与完成时间约为：</p>
+<blockquote class="related"><p><strong>7-9 天</strong></p></blockquote>
+<p>不同用户类型完成周期：</p>
+<table>
+<thead><tr><th>用户类型</th><th>完成时间</th><th>体验</th></tr></thead>
+<tbody>
+<tr><td>双人高活参与</td><td>7-9 天</td><td>可以完整拿完免费奖励，并解锁全部购买资格</td></tr>
+<tr><td>单人高活参与</td><td>14-16 天</td><td>一个人也能完成，但会更慢</td></tr>
+<tr><td>双人轻度参与</td><td>10-18 天</td><td>能拿到多数奖励</td></tr>
+<tr><td>只签到用户</td><td>只能拿前几档</td><td>有基础参与感</td></tr>
+<tr><td>购买冰块用户</td><td>3-6 天</td><td>可加速完成</td></tr>
+</tbody>
+</table>
+<p>这个节奏比较适合 18 天活动：</p>
+<blockquote class="related"><p>前期有反馈，中期拉留存，后期给付费补齐空间。</p></blockquote>
+<hr>
+<section id="section-11">
+<h2>十一、19 个家具槽位分配</h2>
+<p>本活动的 19 个家具必须按项目现有家具槽位理解，不是 19 个任意散件。活动奖励发放、背包装备、商城/图鉴展示都应落到真实 <code>slotId</code>。</p>
+<p>现有家具槽位口径：</p>
+<table>
+<thead><tr><th>slotId</th><th>类型</th><th>PRD命名</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>墙纸</td><td>墙纸</td></tr>
+<tr><td>2</td><td>地板</td><td>地板</td></tr>
+<tr><td>3</td><td>地毯</td><td>地毯</td></tr>
+<tr><td>4</td><td>地饰</td><td>地饰A（左前区）</td></tr>
+<tr><td>5</td><td>床</td><td>床A（中部主床位）</td></tr>
+<tr><td>6</td><td>床</td><td>床B（右后床位）</td></tr>
+<tr><td>7</td><td>地饰</td><td>地饰B（右后区）</td></tr>
+<tr><td>8</td><td>墙饰</td><td>墙饰A（右后墙）</td></tr>
+<tr><td>9</td><td>桌子</td><td>桌子A（左后桌位）</td></tr>
+<tr><td>10</td><td>地饰</td><td>地饰C（中后区）</td></tr>
+<tr><td>11</td><td>墙饰</td><td>墙饰B（左后墙）</td></tr>
+<tr><td>12</td><td>窗户</td><td>窗户A（左侧窗位）</td></tr>
+<tr><td>13</td><td>地饰</td><td>地饰D（左前区）</td></tr>
+<tr><td>14</td><td>门</td><td>门</td></tr>
+<tr><td>15</td><td>墙饰</td><td>墙饰C（左前墙）</td></tr>
+<tr><td>16</td><td>地饰</td><td>地饰E（左前外侧）</td></tr>
+<tr><td>17</td><td>窗户</td><td>窗户B（正前窗位）</td></tr>
+<tr><td>18</td><td>桌子</td><td>桌子B（正前桌位）</td></tr>
+<tr><td>19</td><td>地饰</td><td>地饰F（右前区）</td></tr>
+</tbody>
+</table>
+<p>活动奖励发放规则：</p>
+<ul><li>免费家具和猫爪币家具都计入同一个夏日家具主题。</li><li>免费家具通过冰块币进度领取，不消耗猫爪币。</li><li>猫爪币家具通过冰块币进度解锁购买资格，购买时消耗付款用户个人猫爪币。</li><li>家具所有权进入情侣共享空间资产，双方都应看到拥有态和可装备态。</li><li>若用户新手槽位尚未解锁，活动仍可发放物品；装备时按现有槽位解锁规则拦截，并提示先完成对应新手任务。</li><li>活动家具不进入高级商城常驻售卖；后续返场需要单独配置返场活动或礼包。</li></ul>
+<h3>免费 9 个：基础版刨冰小摊</h3>
+<p>免费家具需要组成一个完整但基础的场景。</p>
+<p>建议分配：</p>
+<table>
+<thead><tr><th>slotId</th><th>类型</th><th>活动物件建议</th><th>获取方式</th><th>作用</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>墙纸</td><td>夏日小摊墙纸</td><td>免费</td><td>建立主题背景</td></tr>
+<tr><td>2</td><td>地板</td><td>沙滩 / 夏日地板</td><td>免费</td><td>建立主题地面</td></tr>
+<tr><td>3</td><td>地毯</td><td>刨冰小摊地垫</td><td>免费</td><td>补足房间基础空间</td></tr>
+<tr><td>4</td><td>地饰A</td><td>冰块桶</td><td>免费</td><td>强化活动道具关联</td></tr>
+<tr><td>9</td><td>桌子A</td><td>刨冰工作台</td><td>免费</td><td>核心场景物件</td></tr>
+<tr><td>11</td><td>墙饰B</td><td>刨冰小招牌</td><td>免费</td><td>明确活动主题</td></tr>
+<tr><td>13</td><td>地饰D</td><td>小凳子 / 等候椅</td><td>免费</td><td>形成经营场景</td></tr>
+<tr><td>18</td><td>桌子B</td><td>刨冰碗摆台</td><td>免费</td><td>强化刨冰元素</td></tr>
+<tr><td>19</td><td>地饰F</td><td>小灯串 / 小装饰</td><td>免费</td><td>提升基础完成感</td></tr>
+</tbody>
+</table>
+<p>目标：</p>
+<blockquote class="related"><p>免费用户完成活动后，可以获得一个基础版刨冰小摊。</p></blockquote>
+<hr>
+<h3>付费 10 个：豪华版刨冰小摊</h3>
+<p>猫爪币家具负责提升完整度、稀缺感和高级感。</p>
+<p>建议分配：</p>
+<table>
+<thead><tr><th>slotId</th><th>类型</th><th>活动物件建议</th><th>获取方式</th><th>定价层级</th></tr></thead>
+<tbody>
+<tr><td>5</td><td>床A</td><td>夏日休息床 / 甜品主座</td><td>猫爪币</td><td>大件</td></tr>
+<tr><td>6</td><td>床B</td><td>豪华遮阳躺椅</td><td>猫爪币</td><td>大件</td></tr>
+<tr><td>7</td><td>地饰B</td><td>冰柜 / 配料车</td><td>猫爪币</td><td>中型</td></tr>
+<tr><td>8</td><td>墙饰A</td><td>夏日菜单牌</td><td>猫爪币</td><td>中型</td></tr>
+<tr><td>10</td><td>地饰C</td><td>水果配料架</td><td>猫爪币</td><td>中型</td></tr>
+<tr><td>12</td><td>窗户A</td><td>夏日小窗 / 摊位窗</td><td>猫爪币</td><td>中型</td></tr>
+<tr><td>14</td><td>门</td><td>夏日小摊门</td><td>猫爪币</td><td>大件</td></tr>
+<tr><td>15</td><td>墙饰C</td><td>霓虹招牌 / 活动挂饰</td><td>猫爪币</td><td>中型</td></tr>
+<tr><td>16</td><td>地饰E</td><td>小猫围裙摆件</td><td>猫爪币</td><td>小件</td></tr>
+<tr><td>17</td><td>窗户B</td><td>正面展示窗</td><td>猫爪币</td><td>小件</td></tr>
+</tbody>
+</table>
+<p>目标：</p>
+<blockquote class="related"><p>付费用户可以把基础刨冰小摊升级成完整豪华限定场景。</p></blockquote>
+<hr>
+<section id="section-12">
+<h2>十二、猫爪币家具定价建议</h2>
+<h3>1. 定价锚点</h3>
+<p>活动高级家具使用猫爪币售卖，但需要和现有装扮商业化定价口径保持一致：</p>
+<table>
+<thead><tr><th>锚点</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>600 猫爪币 ≈ $1</td><td>猫爪币大面额基础锚点</td></tr>
+<tr><td>高级常驻家具完整主题 19 件 ≈ 6600 猫爪币</td><td>标准高级家具主题总价</td></tr>
+<tr><td>强主题高级家具 19 件 ≈ 7200 猫爪币</td><td>美术表现更强时的上限参考</td></tr>
+</tbody>
+</table>
+<p>本活动不是完整 19 件都付费，而是：</p>
+<ul><li>9 件通过活动进度免费获得。</li><li>10 件通过活动进度解锁购买资格后，用猫爪币购买。</li></ul>
+<p>因此本活动 10 件高级家具不能按完整高级家具主题 <code>6600-7200</code> 全价定价，也不能沿用竞品小面额 <code>550-700</code>。合理口径是：</p>
+<blockquote class="related"><p>活动高级家具承担完整主题的升级价值，10 件合计建议为 <code>3600 猫爪币</code>，约等于 <code>$6</code>。</p></blockquote>
+<p>这个价格低于标准高级家具完整主题的一半偏上，原因是：</p>
+<ul><li>免费 9 件已经给用户基础场景，付费 10 件负责豪华升级。</li><li>付费 10 件中包含床、门、窗户等高感知槽位，价值不能按普通小装饰平均摊。</li><li>活动家具是限时获取，不能低到削弱常驻高级家具和后续礼包价值。</li></ul>
+<h3>2. 单件价格表</h3>
+<p>建议按槽位价值分层，不按 10 件平均定价：</p>
+<table>
+<thead><tr><th>slotId</th><th>类型</th><th>活动物件建议</th><th>定价层级</th><th>猫爪币价格</th></tr></thead>
+<tbody>
+<tr><td>5</td><td>床A</td><td>夏日休息床 / 甜品主座</td><td>大件</td><td>600</td></tr>
+<tr><td>6</td><td>床B</td><td>豪华遮阳躺椅</td><td>大件</td><td>600</td></tr>
+<tr><td>7</td><td>地饰B</td><td>冰柜 / 配料车</td><td>中型</td><td>300</td></tr>
+<tr><td>8</td><td>墙饰A</td><td>夏日菜单牌</td><td>中型</td><td>300</td></tr>
+<tr><td>10</td><td>地饰C</td><td>水果配料架</td><td>中型</td><td>300</td></tr>
+<tr><td>12</td><td>窗户A</td><td>夏日小窗 / 摊位窗</td><td>中型</td><td>300</td></tr>
+<tr><td>14</td><td>门</td><td>夏日小摊门</td><td>大件</td><td>600</td></tr>
+<tr><td>15</td><td>墙饰C</td><td>霓虹招牌 / 活动挂饰</td><td>中型</td><td>300</td></tr>
+<tr><td>16</td><td>地饰E</td><td>小猫围裙摆件</td><td>小件</td><td>150</td></tr>
+<tr><td>17</td><td>窗户B</td><td>正面展示窗</td><td>小件</td><td>150</td></tr>
+<tr><td>合计</td><td>-</td><td>-</td><td>-</td><td>3600</td></tr>
+</tbody>
+</table>
+<h3>3. 节点解锁与购买关系</h3>
+<p>猫爪币家具不是一开始全部可买，而是随冰块币进度逐段解锁购买资格。</p>
+<p>建议节点：</p>
+<table>
+<thead><tr><th>冰块币进度</th><th>免费奖励</th><th>解锁猫爪币家具</th><th>对应猫爪币总价</th></tr></thead>
+<tbody>
+<tr><td>500</td><td>免费家具 2 个</td><td>slot16、slot17</td><td>300</td></tr>
+<tr><td>1000</td><td>免费家具 2 个</td><td>slot7、slot8</td><td>600</td></tr>
+<tr><td>2000</td><td>免费家具 2 个</td><td>slot10、slot12、slot15</td><td>900</td></tr>
+<tr><td>3000</td><td>免费家具 3 个</td><td>slot5、slot6、slot14</td><td>1800</td></tr>
+<tr><td>合计</td><td>免费家具 9 个</td><td>猫爪币家具 10 个</td><td>3600</td></tr>
+</tbody>
+</table>
+<p>这样每个阶段都有两层反馈：</p>
+<ul><li>免费用户：达到节点即可拿免费家具。</li><li>高意愿用户：达到节点后可继续购买该阶段高级家具。</li></ul>
+<h3>4. 一键补齐规则</h3>
+<p>V1 可以提供 <code>一键补齐豪华小摊</code>，但必须满足：</p>
+<ul><li>用户冰块币进度已经达到 3000。</li><li>只购买当前未拥有的猫爪币家具。</li><li>已单件购买的家具不重复扣费。</li><li>一键补齐默认按未拥有单件原价合计，不做强折扣。</li></ul>
+<p>如果运营希望增加活动末期转化，可以配置活动末期轻折扣：</p>
+<table>
+<thead><tr><th>方案</th><th>价格</th><th>说明</th></tr></thead>
+<tbody>
+<tr><td>默认一键补齐</td><td>3600 猫爪币</td><td>与单件合计一致，只降低操作成本</td></tr>
+<tr><td>活动末期促销</td><td>3300 猫爪币</td><td>仅在最后 3 天展示，约 8% 折扣</td></tr>
+</tbody>
+</table>
+<p>不建议低于 <code>3000 猫爪币</code>，否则会明显削弱高级常驻家具的价值感。</p>
+<h3>5. 购买与归属规则</h3>
+<ul><li>猫爪币是用户个人付费货币，扣减付款用户个人余额。</li><li>家具购买成功后进入情侣共享空间资产，双方共享拥有态。</li><li>购买资格跟随双方共享冰块币进度，只要共同进度达标，双方都可看到该节点高级家具。</li><li>若 A 购买某个高级家具，B 不需要重复购买同一件。</li><li>如果双方同时购买同一件家具，服务端必须以 <code>space_id + item_id</code> 做幂等，避免重复扣款。</li><li>猫爪币余额不足时，跳转礼包集合页或猫爪币充值入口，充值成功后回到活动家具购买弹层。</li></ul>
+<h3>6. 前台展示口径</h3>
+<p>活动礼物页签中，高级家具建议展示三种状态：</p>
+<table>
+<thead><tr><th>状态</th><th>展示</th></tr></thead>
+<tbody>
+<tr><td>进度未达成</td><td><code>达到 X 冰块币后解锁购买</code></td></tr>
+<tr><td>已解锁未购买</td><td><code>可购买</code> + 猫爪币价格</td></tr>
+<tr><td>已购买</td><td><code>已拥有</code> / 对勾</td></tr>
+</tbody>
+</table>
+<p>文案建议：</p>
+<blockquote class="related"><p>累计冰块币可免费领取基础家具；达到指定进度后，还可使用猫爪币购买高级家具，把刨冰小摊升级为豪华版。</p></blockquote>
+<p>不要写成“用猫爪币购买进度”或“用猫爪币兑换冰块币”，避免用户误解猫爪币可以买穿共享进度。</p>
+<hr>
+<section id="section-13">
+<h2>十三、推荐用户规则文案</h2>
+<p>可以直接给用户展示：</p>
+<blockquote class="related"><p>活动期间，和 TA 一起经营 Cobibu 刨冰小摊吧！<br>完成签到、你画我猜、装修小屋、装扮小猫等任务，可以获得冰块。使用冰块制作刨冰，刨冰完成后可获得冰块币。<br><br>你的冰块仅你自己可以使用，双方冰块数量不共享；但你们获得的冰块币会共同累计，一起解锁活动奖励。<br><br>冰块币累计达到 500、1000、2000、3000 时，可领取对应阶段的免费家具，并解锁高级家具购买资格。<br><br>本期共有 19 个限定家具槽位，其中 9 个可通过活动免费获得，10 个可使用猫爪币购买。免费家具可组成基础版刨冰小摊，高级家具可升级为豪华版刨冰小摊。</p></blockquote>
+<hr>
+<section id="section-14">
+<h2>十四、最终推荐方案总结</h2>
+<table>
+<thead><tr><th>模块</th><th>推荐数值</th></tr></thead>
+<tbody>
+<tr><td>活动周期</td><td>18 天</td></tr>
+<tr><td>总目标</td><td>3000 冰块币</td></tr>
+<tr><td>免费家具</td><td>9 个</td></tr>
+<tr><td>猫爪币家具</td><td>10 个</td></tr>
+<tr><td>每人每日免费冰块</td><td>75-90 个</td></tr>
+<tr><td>双人每日免费冰块</td><td>150-180 个</td></tr>
+<tr><td>冰块币产出</td><td>平均 1 冰块 = 2 冰块币</td></tr>
+<tr><td>双人正常完成时间</td><td>7-9 天</td></tr>
+<tr><td>单人高活完成时间</td><td>14-16 天</td></tr>
+<tr><td>高级家具单买总价</td><td>3600 猫爪币</td></tr>
+<tr><td>高级家具一键补齐</td><td>3600 猫爪币，末期促销可配 3300</td></tr>
+</tbody>
+</table>
+<p>最终活动定位可以这样写：</p>
+<blockquote class="related"><p>这是一个限时双人协作经营活动。用户通过完成任务获得冰块，使用冰块制作刨冰并获得冰块币。双方冰块币共同累计，用于解锁活动奖励。活动提供 9 个免费家具保证参与价值，同时提供 10 个猫爪币高级家具承接高意愿用户的装扮需求和高级货币消耗。</p></blockquote>
+  </main>
+</div>
+</body>
+</html>
