@@ -1,6 +1,5 @@
 {
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/PRD-夏日活动.html" }
+  "rewrites": [
+    { "source": "/", "destination": "/PRD-夏日活动.html" }
   ]
 }
