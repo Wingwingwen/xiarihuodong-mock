@@ -75,6 +75,17 @@ blockquote p { color: inherit; margin: 0; }
 .source-links { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 26px; }
 .source-links a { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; border: 1px solid rgba(245,158,11,0.2); border-radius: 999px; background: var(--accent-bg); color: var(--accent-hover); font-size: 13px; font-weight: 700; text-decoration: none; }
 .source-links a:hover { background: var(--accent-soft); text-decoration: none; }
+.reference-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin: 18px 0 26px; }
+.reference-card { margin: 0; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--bg); box-shadow: var(--shadow-sm); }
+.reference-card img { display: block; width: 100%; aspect-ratio: 9 / 16; object-fit: cover; background: var(--bg-sidebar); }
+.reference-missing { display: none; width: 100%; aspect-ratio: 9 / 16; align-items: center; justify-content: center; text-align: center; padding: 24px; background: var(--bg-sidebar); color: var(--muted); font-size: 13px; }
+.reference-card figcaption { padding: 12px 14px; font-size: 13px; color: var(--text-secondary); border-top: 1px solid var(--border-soft); }
+.reference-card strong { display: block; margin-bottom: 4px; }
+.asset-path { color: var(--muted); font-family: var(--font-mono); font-size: 11.5px; word-break: break-all; }
+.deliverable-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 16px 0; }
+.deliverable-item { border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; background: var(--bg-soft); }
+.deliverable-item strong { display: block; margin-bottom: 4px; font-size: 13.5px; }
+.deliverable-item span { color: var(--text-secondary); font-size: 13px; }
 .checklist { list-style: none; padding-left: 0; }
 .checklist li { position: relative; padding-left: 28px; margin: 7px 0; color: var(--text-secondary); }
 .checklist li::before { content: ""; position: absolute; left: 0; top: 5px; width: 16px; height: 16px; border: 1.5px solid var(--border); border-radius: 4px; background: var(--bg); box-shadow: var(--shadow-xs); }
@@ -86,7 +97,7 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
 .preview-frame { width: min(375px, calc(100vw - 48px)); height: min(812px, calc(100vh - 82px)); aspect-ratio: 375 / 812; background: white; border-radius: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 12px solid #111; overflow: hidden; position: relative; }
 .preview-frame iframe { width: 100%; height: 100%; border: none; }
 @media (max-width: 1200px) { .layout { grid-template-columns: 264px minmax(0, 1fr); } .preview-pane { display: none; } }
-@media (max-width: 960px) { .layout { grid-template-columns: 1fr; } nav.toc { display: none; } main { padding: 32px 24px; } }
+@media (max-width: 960px) { .layout { grid-template-columns: 1fr; } nav.toc { display: none; } main { padding: 32px 24px; } .reference-grid, .deliverable-list { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
@@ -105,6 +116,7 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
         <ul>
           <li><a href="#section-3">3. UX 体验设计</a></li>
           <li><a href="#section-4">4. UI 视觉设计</a></li>
+          <li><a href="#section-4-3">4.3 拍脸图与首页曝光</a></li>
         </ul>
       </li>
       <li><a href="#engineering">三、研发工作范围</a>
@@ -294,6 +306,8 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
             <tr><td>双方状态</td><td>我的冰块、TA 的冰块、催促按钮</td><td>明确双方冰块不共享，但共同参与活动</td></tr>
             <tr><td>主行动</td><td>制作刨冰按钮</td><td>首屏主 CTA，冰块不足时进入不可用或引导态</td></tr>
             <tr><td>奖励进度</td><td>500 / 1000 / 2000 / 3000 节点</td><td>免费奖励和高级家具并列展示，未解锁状态清楚</td></tr>
+            <tr><td>拍脸图</td><td>活动强曝光弹窗图、拍脸图文案、小猫装扮 + 家居预览效果</td><td>突出夏日限定、双人经营、免费家具与高级家具升级价值，画面需能预览小猫装扮后的家居场景效果</td></tr>
+            <tr><td>首页轮播</td><td>首页轮播 icon / banner 入口图</td><td>用于活动上线期间首页轮播入口，视觉与拍脸图和活动页主题保持一致</td></tr>
           </tbody>
         </table>
 
@@ -308,6 +322,86 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
             <tr><td>猫爪币</td><td>沿用项目付费货币图标</td><td>与冰块、冰块币做明显区分，避免误支付</td></tr>
           </tbody>
         </table>
+
+        <h3 id="section-4-3">4.3 拍脸图与首页曝光美术需求</h3>
+        <blockquote class="related">
+          本节用于美术排期与运营物料验收。拍脸图需要承担活动首曝转化，首页轮播 icon / banner 需要承担活动期持续入口召回。
+        </blockquote>
+
+        <h3>4.3.1 参考图嵌入</h3>
+        <div class="reference-grid">
+          <figure class="reference-card">
+            <img src="assets/summer-surf-party.png" alt="图 1：夏日冲浪派对拍脸图参考" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="reference-missing">参考图待放入<br><span class="asset-path">assets/summer-surf-party.png</span></div>
+            <figcaption>
+              <strong>图 1：夏日冲浪派对</strong>
+              <span class="asset-path">assets/summer-surf-party.png</span>
+            </figcaption>
+          </figure>
+          <figure class="reference-card">
+            <img src="assets/kitten-shaved-ice-shop.png" alt="图 2：小猫刨冰店打工日记拍脸图参考" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="reference-missing">参考图待放入<br><span class="asset-path">assets/kitten-shaved-ice-shop.png</span></div>
+            <figcaption>
+              <strong>图 2：小猫刨冰店打工日记</strong>
+              <span class="asset-path">assets/kitten-shaved-ice-shop.png</span>
+            </figcaption>
+          </figure>
+        </div>
+
+        <h3>4.3.2 图 2：小猫刨冰店打工日记</h3>
+        <table>
+          <thead><tr><th>模块</th><th>内容</th><th>设计要求</th></tr></thead>
+          <tbody>
+            <tr><td>顶部标签</td><td>夏日限定活动</td><td>标签放在标题上方，强化活动属性，避免遮挡主标题。</td></tr>
+            <tr><td>主标题</td><td>小猫刨冰店<br>打工日记</td><td>标题需为画面第一视觉层级，字形偏圆润、甜品感、冰爽感。</td></tr>
+            <tr><td>副标题</td><td>清凉营业中，体验猫咪夏日打工日常</td><td>承接标题氛围，传达小猫经营 / 打工主题。</td></tr>
+            <tr><td>权益点</td><td>限定家居｜清凉主题装扮<br>打工任务｜完成获取奖励<br>夏日好礼｜登录解锁惊喜</td><td>建议右侧纵向卡片展示，配小房子、任务板、礼盒等 icon。</td></tr>
+            <tr><td>活动说明</td><td>完成活动获取限定家居装扮</td><td>放在 CTA 上方，作为转化前最后一句收益说明。</td></tr>
+            <tr><td>按钮文案</td><td>立即打工</td><td>粉色 CTA，按钮需要足够大，保留猫爪或甜品点缀。</td></tr>
+            <tr><td>活动时间</td><td>活动时间：6.15-7.10</td><td>放在 CTA 下方，字号低于按钮但需清晰可读。</td></tr>
+          </tbody>
+        </table>
+        <table>
+          <thead><tr><th>视觉项</th><th>需求</th></tr></thead>
+          <tbody>
+            <tr><td>主视觉</td><td>黑色小猫店员，穿围裙、戴草帽，在刨冰店打工；小猫需要可爱、亲近、有明确服务动作。</td></tr>
+            <tr><td>核心道具</td><td>刨冰碗、勺子、糖浆瓶、菜单牌、小风扇、冰块。</td></tr>
+            <tr><td>夏日素材</td><td>西瓜、柠檬、草莓、芒果刨冰、薄荷叶、遮阳伞、热带花朵。</td></tr>
+            <tr><td>场景氛围</td><td>小猫刨冰店 / 夏日饮品摊 / 清凉营业中，重点表现甜品店、打工日常和清凉感。</td></tr>
+            <tr><td>弹窗风格</td><td>蓝白冰爽边框，搭配粉色 CTA，整体偏清凉、可爱、甜品店氛围。</td></tr>
+            <tr><td>家居预览</td><td>画面需露出限定家居或清凉主题装扮效果，让用户能预期活动奖励落到房间装扮后的收益。</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4.3.3 图 1：夏日冲浪派对</h3>
+        <table>
+          <thead><tr><th>模块</th><th>内容</th><th>设计要求</th></tr></thead>
+          <tbody>
+            <tr><td>顶部标签</td><td>限时活动</td><td>标签需要清晰表达活动限时属性，可使用木牌、缎带或夏日贴纸样式。</td></tr>
+            <tr><td>主标题</td><td>夏日冲浪<br>派对</td><td>标题突出冲浪、海岛、派对感，字形可偏立体泡泡字。</td></tr>
+            <tr><td>副标题</td><td>限定夏日装扮惊喜上线</td><td>直接传达限定装扮上线收益。</td></tr>
+            <tr><td>权益点</td><td>专属外观｜限定装扮</td><td>可作为第一权益点，也可补充海岛好礼、趣味任务等卡片。</td></tr>
+            <tr><td>活动说明</td><td>完成活动任务，领取专属外观与海岛好礼</td><td>放在底部说明条，和 CTA 形成转化闭环。</td></tr>
+            <tr><td>按钮文案</td><td>立即参加</td><td>按钮需要高对比、强点击感，风格与海浪底座一致。</td></tr>
+            <tr><td>倒计时</td><td>活动倒计时：11天17小时</td><td>放在按钮下方，作为紧迫感信息，避免抢主标题层级。</td></tr>
+          </tbody>
+        </table>
+
+        <h3>4.3.4 交付物与验收</h3>
+        <div class="deliverable-list">
+          <div class="deliverable-item"><strong>拍脸图完整稿</strong><span>含文案版本，用于活动强曝光弹窗。</span></div>
+          <div class="deliverable-item"><strong>拍脸图无文案底图</strong><span>便于多语言或运营文案替换。</span></div>
+          <div class="deliverable-item"><strong>首页轮播 icon / banner</strong><span>活动期首页入口图，小尺寸需可识别主题。</span></div>
+          <div class="deliverable-item"><strong>小猫装扮 + 家居预览图</strong><span>用于表达限定奖励落地后的空间装扮收益。</span></div>
+        </div>
+        <ul class="checklist">
+          <li>主标题、CTA、活动时间 / 倒计时在手机弹窗尺寸下清晰可读。</li>
+          <li>拍脸图、首页轮播、活动页、小摊家具使用同一套夏日清凉视觉语言。</li>
+          <li>画面明确表达活动收益：任务奖励、限定家居、限定装扮或海岛好礼。</li>
+          <li>图 2 必须能看到黑色小猫店员和刨冰店经营场景。</li>
+          <li>图 2 必须包含小猫装扮 + 家居预览效果，不只展示单个道具。</li>
+          <li>首页轮播 icon / banner 在缩小后仍能识别活动主题，不依赖长文案说明。</li>
+        </ul>
       </section>
     </section>
 
@@ -473,6 +567,7 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
         <table>
           <thead><tr><th>日期</th><th>版本</th><th>变更</th><th>作者</th></tr></thead>
           <tbody>
+            <tr><td>2026-05-15</td><td>v1.1</td><td>补充拍脸图、拍脸图文案、小猫装扮 + 家居预览效果、首页轮播 icon 美术需求</td><td>Codex</td></tr>
             <tr><td>2026-05-11</td><td>v1.0</td><td>按五大块 11 章节重组夏日活动 PRD，并内嵌 H5 演示原型</td><td>Codex</td></tr>
           </tbody>
         </table>
