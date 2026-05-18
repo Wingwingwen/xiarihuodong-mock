@@ -158,7 +158,7 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
           <dt>文档状态</dt><dd>结构化 PRD</dd>
           <dt>输入材料</dt><dd>夏日活动PRD.md、index.html H5 演示原型</dd>
           <dt>原型位置</dt><dd>右侧手机框内嵌 <code>index.html</code></dd>
-          <dt>最后更新</dt><dd>2026-05-11</dd>
+          <dt>最后更新</dt><dd>2026-05-18</dd>
         </dl>
       </div>
       <blockquote class="related">
@@ -174,10 +174,10 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
       <section id="section-1">
         <h3>1. 需求背景与目标</h3>
         <blockquote class="callout">
-          <p><strong>核心概念：</strong>做任务获得「冰块」 → 使用冰块制作刨冰 → 获得「冰块币」 → 双方共同累计进度 → 解锁免费家具与猫爪币家具购买资格。</p>
+          <p><strong>核心概念：</strong>做任务获得「冰块」 → 使用冰块制作刨冰 → 获得「冰块币」 → 双方共同累计进度 → 解锁免费家具与活动限定折扣家具购买资格。</p>
         </blockquote>
         <p>夏日活动是一个限时双人协作经营活动。活动期间，用户和自己的匹配对象一起帮助 Cobibu 经营刨冰小摊，通过完成产品内任务获得冰块，再消耗冰块制作刨冰并获得冰块币。</p>
-        <p>双方获得的冰块币会共同累计到同一个活动进度中。进度达到指定节点后，用户可以领取免费家具，并解锁对应阶段高级家具的猫爪币购买资格。</p>
+        <p>双方获得的冰块币会共同累计到同一个活动进度中。进度达到指定节点后，用户可以领取免费家具，并解锁对应阶段活动限定家具的猫爪币折扣购买资格。</p>
 
         <h3>1.1 业务目标</h3>
         <table>
@@ -186,7 +186,7 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
             <tr><td>提升双人协作参与</td><td>通过共享冰块币进度，让双方一起推进活动目标</td><td>活动页进入率、双方参与率、催促点击率</td></tr>
             <tr><td>拉动核心行为</td><td>任务围绕签到、你画我猜、装修小屋、装扮小猫等产品内行为设计</td><td>任务完成率、任务带动核心功能点击率</td></tr>
             <tr><td>提供免费完成感</td><td>用户不付费也能获得 9 个基础家具，形成基础版刨冰小摊</td><td>免费奖励领取率、阶段节点达成率</td></tr>
-            <tr><td>承接高级货币消耗</td><td>通过 10 个猫爪币家具，将基础小摊升级为豪华限定场景</td><td>高级家具解锁率、购买率、一键补齐转化</td></tr>
+            <tr><td>承接高级货币消耗</td><td>通过 10 个活动限定折扣家具，将基础小摊升级为豪华限定场景</td><td>高级家具解锁率、购买率、一键补齐转化</td></tr>
           </tbody>
         </table>
 
@@ -197,7 +197,7 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
             <tr><td>活动主页面</td><td>包含</td><td>展示活动时间、盈利目标、双方冰块、制作刨冰入口、奖励进度</td></tr>
             <tr><td>任务获取冰块</td><td>包含</td><td>每日任务和长线任务均可配置</td></tr>
             <tr><td>冰块购买</td><td>包含</td><td>贝壳购买作为轻加速；猫爪币购买仅开放中包和大包建议</td></tr>
-            <tr><td>奖励领取与高级家具购买</td><td>包含</td><td>免费家具领取，高级家具解锁后用猫爪币购买</td></tr>
+            <tr><td>奖励领取与高级家具购买</td><td>包含</td><td>免费家具领取，高级家具解锁后用猫爪币按活动折扣价购买</td></tr>
             <tr><td>H5 演示原型</td><td>包含</td><td>右侧 iframe 内嵌当前目录 <code>index.html</code></td></tr>
             <tr><td>IAP 验单与补单细节</td><td>不展开</td><td>沿用礼包 / IAP 支付链路 PRD，不在本文锁定协议实现</td></tr>
           </tbody>
@@ -213,9 +213,9 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
           <tbody>
             <tr><td>1</td><td>进入夏日刨冰小摊活动页</td><td>展示活动时间、当前冰块币进度、双方冰块数量</td><td>需要 Cobibu 绑定后参与</td></tr>
             <tr><td>2</td><td>完成任务或购买冰块</td><td>获得个人冰块</td><td>冰块为个人资产，不共享</td></tr>
-            <tr><td>3</td><td>点击制作刨冰</td><td>消耗个人冰块，产出冰块币</td><td>可触发大胃王顾客 / 刨冰大佬惊喜产出</td></tr>
-            <tr><td>4</td><td>双方持续制作刨冰</td><td>冰块币累计到共享进度</td><td>双方冰块币进度共享</td></tr>
-            <tr><td>5</td><td>达到 500 / 1000 / 2000 / 3000 节点</td><td>领取免费家具并解锁高级家具购买资格</td><td>高级家具消耗付款用户个人猫爪币</td></tr>
+            <tr><td>3</td><td>点击制作刨冰</td><td>消耗个人冰块，进入短倒计时制作</td><td>客户端演示为 5 秒，正式数值以配置为准</td></tr>
+            <tr><td>4</td><td>刨冰制作完成</td><td>获得冰块币并累计到共享进度</td><td>双方冰块币进度共享</td></tr>
+            <tr><td>5</td><td>达到 500 / 1000 / 2000 / 3000 节点</td><td>领取免费家具并解锁高级家具折扣购买资格</td><td>高级家具按活动折扣价购买，消耗付款用户个人猫爪币</td></tr>
           </tbody>
         </table>
 
@@ -228,7 +228,8 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
             <tr><td>冰块</td><td>活动消耗道具，可通过任务或购买获得</td><td>双方冰块不共享，谁获得谁使用</td></tr>
             <tr><td>冰块币</td><td>活动进度道具，制作刨冰完成后获得</td><td>双方冰块币共享累计，用于解锁奖励</td></tr>
             <tr><td>免费家具</td><td>达到冰块币进度后免费领取，共 9 个</td><td>组成基础版刨冰小摊</td></tr>
-            <tr><td>猫爪币家具</td><td>达到进度后解锁购买资格，共 10 个</td><td>购买成功后进入情侣共享空间资产</td></tr>
+            <tr><td>猫爪币家具</td><td>达到进度后解锁活动折扣购买资格，共 10 个</td><td>购买成功后进入情侣共享空间资产；活动结束后暂不开放购买</td></tr>
+            <tr><td>活动结束</td><td>活动结束后未消耗冰块清空；已达成但未领取的基础奖励自动补发</td><td>直购入口关闭，高级家具后续返场需另行配置</td></tr>
           </tbody>
         </table>
 
@@ -237,10 +238,10 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
           <thead><tr><th>模块</th><th>推荐数值</th><th>说明</th></tr></thead>
           <tbody>
             <tr><td>总目标</td><td>3000 冰块币</td><td>活动主进度目标</td></tr>
-            <tr><td>冰块币产出</td><td>平均 1 冰块 = 2 冰块币</td><td>保留随机惊喜机制</td></tr>
+            <tr><td>冰块币产出</td><td>1 冰块 = 2 冰块币</td><td>本期不设置额外高收益顾客产出逻辑</td></tr>
             <tr><td>每人每日免费冰块</td><td>75-90 个</td><td>取决于双方是否都参与活动任务</td></tr>
             <tr><td>双人正常完成时间</td><td>7-9 天</td><td>18 天活动中前期有反馈、中期拉留存、后期留付费补齐空间</td></tr>
-            <tr><td>高级家具总价</td><td>3600 猫爪币</td><td>活动高级家具升级价值，约 $6</td></tr>
+            <tr><td>高级家具总价</td><td>3600 猫爪币</td><td>活动限定折扣家具升级价值，约 $6；活动结束后暂不开放购买</td></tr>
           </tbody>
         </table>
       </section>
@@ -273,7 +274,7 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
             <tr><td>获取冰块</td><td>任务弹层 / 冰块购买弹层</td><td><code>source_surface=summer_task_button</code></td><td>关闭弹层后刷新个人冰块余额</td></tr>
             <tr><td>制作刨冰</td><td>主按钮区</td><td><code>action=make_shaved_ice</code></td><td>播放制作反馈，刷新个人冰块和共享冰块币进度</td></tr>
             <tr><td>领取阶段奖励</td><td>奖励进度节点</td><td><code>reward_node</code></td><td>领取后刷新节点状态和背包 / 家具拥有态</td></tr>
-            <tr><td>购买高级家具</td><td>高级家具弹层</td><td><code>item_id</code>、<code>reward_node</code></td><td>购买成功后返回活动页并刷新家具拥有态</td></tr>
+            <tr><td>购买高级家具</td><td>高级家具弹层</td><td><code>item_id</code>、<code>reward_node</code></td><td>按活动折扣价购买成功后返回活动页并刷新家具拥有态</td></tr>
           </tbody>
         </table>
 
@@ -284,8 +285,9 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
             <tr><td>冰块不足</td><td>制作按钮置灰或点击后引导获取冰块</td><td>不允许本地负数扣减</td></tr>
             <tr><td>制作中</td><td>小摊轻微动效，按钮进入不可重复点击态</td><td>避免连续点击重复扣冰块</td></tr>
             <tr><td>可催促 TA</td><td>双方冰块区域展示「催一催」</td><td>当天已催促后展示「已催促」</td></tr>
-            <tr><td>奖励未解锁</td><td>高级家具展示锁态和达成条件</td><td>文案为「达到 X 冰块币后解锁购买」</td></tr>
+            <tr><td>奖励未解锁</td><td>高级家具展示锁态和达成条件</td><td>文案为「达到 X 冰块币后解锁折扣购买」</td></tr>
             <tr><td>已完成 3000 目标</td><td>弱化继续购买冰块推荐，突出奖励领取和高级家具补齐</td><td>避免用户误购加速道具</td></tr>
+            <tr><td>活动已结束</td><td>关闭制作、获取冰块和直购入口；展示结束态与已获得奖励</td><td>未消耗冰块清空，已达成未领取基础奖励自动补发</td></tr>
           </tbody>
         </table>
       </section>
@@ -318,7 +320,7 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
             <tr><td>冰块</td><td>蓝色方块 / 冰块图标</td><td>表现为个人消耗道具，不要和冰块币混淆</td></tr>
             <tr><td>冰块币</td><td>金币 / 橙黄色数值</td><td>表现为共享进度道具，绑定 3000 主目标</td></tr>
             <tr><td>免费家具</td><td>灰 / 绿领取态</td><td>强调达成即可获得</td></tr>
-            <tr><td>猫爪币家具</td><td>蓝色进阶标签 / 锁态</td><td>强调进度解锁购买资格，不是直接购买进度</td></tr>
+            <tr><td>猫爪币家具</td><td>蓝色进阶标签 / 锁态 / 活动折扣标识</td><td>强调进度解锁折扣购买资格，不是直接购买进度</td></tr>
             <tr><td>猫爪币</td><td>沿用项目付费货币图标</td><td>与冰块、冰块币做明显区分，避免误支付</td></tr>
           </tbody>
         </table>
@@ -433,11 +435,12 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
           <tbody>
             <tr><td>活动状态</td><td>下发活动时间、参与资格、总目标、当前共享冰块币进度</td><td>按 <code>space_id</code> 聚合双方共享进度</td></tr>
             <tr><td>个人冰块账户</td><td>记录每个用户的冰块余额、获取、消耗流水</td><td>按 <code>uid</code> 归属，不与对方共享</td></tr>
-            <tr><td>制作结算</td><td>校验冰块余额、扣减冰块、计算冰块币产出</td><td>随机产出普通顾客 / 大胃王顾客 / 刨冰大佬结果</td></tr>
+            <tr><td>制作结算</td><td>校验冰块余额、扣减冰块、计算冰块币产出</td><td>本期固定按配置产出冰块币，不设置额外高收益顾客逻辑</td></tr>
             <tr><td>任务系统</td><td>识别任务完成、发放冰块、记录每日领取状态</td><td>每日任务需按自然日重置；长线任务记录累计进度</td></tr>
             <tr><td>奖励系统</td><td>按节点发放免费家具，记录领取状态</td><td>奖励进入情侣共享空间资产</td></tr>
-            <tr><td>高级家具购买</td><td>校验节点解锁、猫爪币余额、家具拥有态并扣费</td><td>用 <code>space_id + item_id</code> 做幂等，避免双方同时购买重复扣款</td></tr>
-            <tr><td>配置读取</td><td>读取活动数值、任务、节点、家具、购买限制</td><td>支持运营配置活动周期、奖励、价格和限购次数</td></tr>
+            <tr><td>高级家具购买</td><td>校验节点解锁、活动期、猫爪币余额、家具拥有态并扣费</td><td>用 <code>space_id + item_id</code> 做幂等，避免双方同时购买重复扣款；活动结束后关闭购买</td></tr>
+            <tr><td>活动结束结算</td><td>清空未消耗冰块，自动补发已达成未领取基础奖励</td><td>关闭直购入口，保留已获得家具与活动结果展示</td></tr>
+            <tr><td>配置读取</td><td>读取活动数值、任务、节点、家具、购买限制</td><td>支持运营配置活动周期、奖励、活动折扣价和限购次数</td></tr>
           </tbody>
         </table>
       </section>
@@ -455,9 +458,9 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
           <tbody>
             <tr><td>获取活动首页数据</td><td>客户端 → 服务端</td><td>进入活动页、回流活动页</td><td><code>activity_id</code>、<code>uid</code>、<code>space_id</code></td></tr>
             <tr><td>领取任务奖励</td><td>客户端 → 服务端</td><td>用户点击领取冰块</td><td><code>task_id</code>、<code>reward_cubes</code>、<code>claim_status</code></td></tr>
-            <tr><td>制作刨冰</td><td>客户端 → 服务端</td><td>用户点击制作刨冰</td><td><code>cost_cubes</code>、<code>earned_coin</code>、<code>customer_type</code></td></tr>
+            <tr><td>制作刨冰</td><td>客户端 → 服务端</td><td>用户点击制作刨冰，倒计时完成后结算</td><td><code>cost_cubes</code>、<code>earned_coin</code>、<code>make_duration</code></td></tr>
             <tr><td>领取节点奖励</td><td>客户端 → 服务端</td><td>冰块币达到节点后点击领取</td><td><code>reward_node</code>、<code>free_item_list</code>、<code>claim_status</code></td></tr>
-            <tr><td>购买高级家具</td><td>客户端 → 服务端</td><td>用户点击购买高级家具</td><td><code>item_id</code>、<code>price_cat_paw</code>、<code>order_id</code></td></tr>
+            <tr><td>购买高级家具</td><td>客户端 → 服务端</td><td>用户点击购买高级家具</td><td><code>item_id</code>、<code>origin_price_cat_paw</code>、<code>discount_price_cat_paw</code>、<code>order_id</code></td></tr>
             <tr><td>催促 TA</td><td>客户端 → 服务端</td><td>用户点击「催一催」</td><td><code>target_uid</code>、<code>urge_date</code>、<code>cooldown_status</code></td></tr>
           </tbody>
         </table>
@@ -522,9 +525,10 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
             <tr><td><code>summer_task_panel_click</code></td><td>点击获取冰块</td><td><code>source_surface</code>、<code>available_task_count</code></td></tr>
             <tr><td><code>summer_task_reward_claim</code></td><td>领取任务冰块</td><td><code>task_id</code>、<code>reward_cubes</code>、<code>claim_result</code></td></tr>
             <tr><td><code>summer_make_ice_click</code></td><td>点击制作刨冰</td><td><code>my_cubes</code>、<code>cost_cubes</code>、<code>return_target</code></td></tr>
-            <tr><td><code>summer_make_ice_result</code></td><td>制作结算完成</td><td><code>earned_coin</code>、<code>customer_type</code>、<code>coin_progress_after</code></td></tr>
+            <tr><td><code>summer_make_ice_result</code></td><td>制作结算完成</td><td><code>earned_coin</code>、<code>make_duration</code>、<code>coin_progress_after</code></td></tr>
             <tr><td><code>summer_reward_claim</code></td><td>领取阶段奖励</td><td><code>reward_node</code>、<code>free_item_count</code>、<code>return_target</code></td></tr>
-            <tr><td><code>summer_paid_item_buy</code></td><td>购买高级家具</td><td><code>item_id</code>、<code>price_cat_paw</code>、<code>buy_result</code>、<code>return_target</code></td></tr>
+            <tr><td><code>summer_paid_item_buy</code></td><td>购买高级家具</td><td><code>item_id</code>、<code>origin_price_cat_paw</code>、<code>discount_price_cat_paw</code>、<code>buy_result</code>、<code>return_target</code></td></tr>
+            <tr><td><code>summer_activity_end_settle</code></td><td>活动结束结算</td><td><code>cleared_cubes</code>、<code>auto_grant_reward_count</code>、<code>paid_entry_closed</code></td></tr>
           </tbody>
         </table>
       </section>
@@ -537,9 +541,10 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
           <li>活动入口在配置时间内正确展示，未到活动时间或活动结束后按配置隐藏或展示结束态。</li>
           <li>未绑定 Cobibu 用户不能直接参与活动，并能看到正确绑定引导。</li>
           <li>完成每日任务后可以领取冰块，重复领取被服务端拦截。</li>
-          <li>制作刨冰会扣减个人冰块，并增加双方共享冰块币进度。</li>
-          <li>普通顾客、大胃王顾客、刨冰大佬产出区间符合配置。</li>
-          <li>达到 500、1000、2000、3000 节点后，可领取对应免费家具并解锁高级家具购买资格。</li>
+          <li>制作刨冰会进入倒计时，倒计时完成后扣减个人冰块，并增加双方共享冰块币进度。</li>
+          <li>本期制作结算不触发额外高收益顾客逻辑，冰块币产出按固定配置返回。</li>
+          <li>达到 500、1000、2000、3000 节点后，可领取对应免费家具并解锁高级家具活动折扣购买资格。</li>
+          <li>活动结束后未消耗冰块清空，已达成但未领取的基础奖励自动补发，直购入口关闭。</li>
         </ul>
 
         <h3>10.2 跨页回流刷新</h3>
@@ -567,6 +572,7 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
         <table>
           <thead><tr><th>日期</th><th>版本</th><th>变更</th><th>作者</th></tr></thead>
           <tbody>
+            <tr><td>2026-05-18</td><td>v1.2</td><td>对齐竞品规则：保留家居奖励方案，补充活动限定折扣家具、5 秒制作倒计时、活动结束结算与直购关闭规则，并移除额外高收益顾客相关逻辑</td><td>Codex</td></tr>
             <tr><td>2026-05-15</td><td>v1.1</td><td>补充拍脸图、拍脸图文案、小猫装扮 + 家居预览效果、首页轮播 icon 美术需求</td><td>Codex</td></tr>
             <tr><td>2026-05-11</td><td>v1.0</td><td>按五大块 11 章节重组夏日活动 PRD，并内嵌 H5 演示原型</td><td>Codex</td></tr>
           </tbody>

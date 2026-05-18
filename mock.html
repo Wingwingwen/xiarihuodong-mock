@@ -4,480 +4,1500 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>夏日刨冰小摊</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --ink: #4f463c;
+            --line: #9f8159;
+            --line-dark: #6c5d4d;
+            --cream: #fff8e7;
+            --cream-2: #fff0c8;
+            --mint: #c9ead6;
+            --mint-line: #9fd6bd;
+            --gold: #f3c871;
+            --gold-2: #e4a737;
+            --orange: #d68c1f;
+            --blue: #cfe5ef;
+            --blue-line: #9fb6c3;
+            --locked: #e9e3d9;
+            --shadow: 0 8px 0 rgba(119, 94, 62, .16);
+        }
+
+        * { box-sizing: border-box; }
+        html, body { margin: 0; height: 100%; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f3f4f6;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+            background: #f3f4f6;
+            color: var(--ink);
             touch-action: pan-y;
             user-select: none;
             -webkit-user-select: none;
         }
-        .bg-pattern {
-            background-image: radial-gradient(#fde68a 20%, transparent 20%);
-            background-position: 0 0, 10px 10px;
-            background-size: 20px 20px;
-        }
-        /* Transitions */
-        .fade-enter-active, .fade-leave-active {
-            transition: opacity 0.3s ease;
-        }
-        .fade-enter-from, .fade-leave-to {
-            opacity: 0;
-        }
-        .slide-up-enter-active, .slide-up-leave-active {
-            transition: transform 0.3s ease;
-        }
-        .slide-up-enter-from, .slide-up-leave-to {
-            transform: translateY(100%);
-        }
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 4px; }
-        
-        .btn-press:active { transform: scale(0.95); }
-        .shake { animation: shake 0.5s; }
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-            100% { transform: translateX(0); }
+
+        button { font: inherit; color: inherit; border: 0; background: none; }
+        .phone {
+            width: min(100vw, 430px);
+            height: 100dvh;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+            background:
+                radial-gradient(circle at 18% 7%, rgba(250, 216, 132, .36) 0 18px, transparent 19px),
+                radial-gradient(circle at 72% 12%, rgba(250, 216, 132, .28) 0 13px, transparent 14px),
+                linear-gradient(#fffaf0 0 34%, #d8f0de 34% 42%, #fff7df 42%);
+            box-shadow: 0 18px 50px rgba(0,0,0,.22);
         }
         .scrollable {
+            height: 100%;
             overflow-y: auto;
+            overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
             overscroll-behavior-y: contain;
+            padding-bottom: 34px;
+        }
+        .tile-floor {
+            background-image:
+                linear-gradient(90deg, rgba(255,255,255,.9) 2px, transparent 2px),
+                linear-gradient(0deg, rgba(255,255,255,.9) 2px, transparent 2px),
+                radial-gradient(circle, rgba(255,255,255,.95) 0 5px, transparent 6px),
+                linear-gradient(135deg, rgba(250,216,132,.28) 25%, transparent 25% 50%, rgba(250,216,132,.24) 50% 75%, transparent 75%);
+            background-size: 92px 92px, 92px 92px, 92px 92px, 92px 92px;
+            background-position: 0 0, 0 0, -4px -4px, 0 0;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            padding: 18px 18px 0;
+            position: relative;
+            z-index: 5;
+        }
+        .round-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #fffef8;
+            border: 4px solid #3b3833;
+            display: grid;
+            place-items: center;
+            box-shadow: 0 3px 0 rgba(0,0,0,.12);
+            font-size: 24px;
+            font-weight: 900;
+        }
+        .round-btn.help {
+            border-color: var(--line-dark);
+            background: #f7cf7e;
+        }
+        .btn-press:active { transform: translateY(2px) scale(.98); }
+
+        .logo-wrap {
+            margin: -2px auto 0;
+            text-align: center;
+            transform: rotate(1deg);
+        }
+        .title-logo {
+            display: inline-block;
+            padding: 8px 18px 10px;
+            color: #fff;
+            font-size: 34px;
+            line-height: 1;
+            font-weight: 1000;
+            letter-spacing: 1px;
+            border-radius: 32px 26px 30px 24px;
+            background: #d9ab50;
+            border: 7px solid #fffdf6;
+            box-shadow: 0 0 0 5px #dfbf86, 0 5px 0 rgba(111,79,36,.18);
+            text-shadow: 2px 3px 0 #9d722b;
+            -webkit-text-stroke: 1px #9d722b;
+        }
+        .title-sub {
+            display: inline-block;
+            margin-top: -2px;
+            padding: 3px 14px 5px;
+            color: #fff;
+            background: #d7ad79;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 900;
+            text-shadow: 1px 2px 0 rgba(92,63,30,.24);
+        }
+        .date-ribbon {
+            width: fit-content;
+            margin: 8px auto 0;
+            padding: 5px 18px;
+            color: #fff;
+            background: #d0a572;
+            border-radius: 4px;
+            font-size: 18px;
+            font-weight: 900;
+            box-shadow: inset 0 -3px 0 rgba(116,76,32,.18);
+        }
+        .hero {
+            position: relative;
+        }
+
+        .target-card {
+            position: absolute;
+            left: 18px;
+            top: 176px;
+            z-index: 4;
+            width: 112px;
+            padding: 10px 8px 12px;
+            border: 4px solid var(--line);
+            border-radius: 12px;
+            background: #fff1c7;
+            box-shadow: 0 4px 0 rgba(104,79,49,.18);
+            text-align: center;
+        }
+        .target-card .label {
+            color: #8b765e;
+            font-size: 13px;
+            font-weight: 900;
+            letter-spacing: .5px;
+        }
+        .coin-line {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 3px;
+            margin-top: 5px;
+            color: var(--orange);
+            font-weight: 900;
+            font-size: 26px;
+        }
+        .coin {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: inline-grid;
+            place-items: center;
+            background: linear-gradient(#ffd57f, #e9952c);
+            border: 3px solid #c97b2a;
+            color: #fff8d9;
+            font-size: 12px;
+            box-shadow: inset 0 2px 0 rgba(255,255,255,.45);
+            flex: 0 0 auto;
+        }
+        .denom { color: #9b8974; font-size: 18px; font-weight: 800; }
+
+        .shop-scene {
+            position: relative;
+            min-height: 330px;
+            margin-top: 4px;
+            padding-top: 136px;
+        }
+        .wall-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 214px;
+            height: 5px;
+            background: rgba(125, 189, 153, .85);
+            box-shadow: 0 74px 0 rgba(255,255,255,.6);
+        }
+        .scene-prop {
+            position: absolute;
+            opacity: .95;
+            filter: drop-shadow(0 3px 0 rgba(91,75,55,.08));
+        }
+        .plant {
+            left: 18px;
+            top: 205px;
+            width: 58px;
+            height: 94px;
+        }
+        .plant::before {
+            content: "";
+            position: absolute;
+            left: 22px;
+            top: 8px;
+            width: 7px;
+            height: 60px;
+            background: #87a872;
+            border-radius: 6px;
+        }
+        .leaf {
+            position: absolute;
+            width: 30px;
+            height: 19px;
+            background: #b5ca82;
+            border: 3px solid #7e9865;
+            border-radius: 100% 20% 100% 20%;
+        }
+        .leaf.l1 { left: 0; top: 12px; transform: rotate(28deg); }
+        .leaf.l2 { left: 24px; top: 22px; transform: rotate(-34deg) scale(.95); }
+        .leaf.l3 { left: 3px; top: 40px; transform: rotate(24deg); }
+        .leaf.l4 { left: 26px; top: 50px; transform: rotate(-26deg); }
+        .pot {
+            position: absolute;
+            left: 12px;
+            bottom: 0;
+            width: 36px;
+            height: 28px;
+            background: #f3dcad;
+            border: 4px solid #9b8060;
+            border-top-width: 5px;
+            border-radius: 3px 3px 8px 8px;
+        }
+        .menu-board {
+            right: 38px;
+            top: 190px;
+            width: 54px;
+            height: 66px;
+            background: #fff8e7;
+            border: 4px solid var(--line);
+            border-radius: 8px;
+        }
+        .menu-board::before {
+            content: "🍧";
+            position: absolute;
+            left: 10px;
+            top: 10px;
+            font-size: 27px;
+        }
+        .menu-board::after {
+            content: "";
+            position: absolute;
+            left: 9px;
+            right: 9px;
+            bottom: 12px;
+            height: 4px;
+            border-radius: 3px;
+            background: #d9ab50;
+            box-shadow: 0 -10px 0 #efb7ad;
+        }
+
+        .stall {
+            position: relative;
+            width: 280px;
+            height: 176px;
+            margin: 0 auto;
+            transition: transform .2s ease;
+        }
+        .stall.making { animation: wiggle .42s ease-in-out infinite; }
+        @keyframes wiggle {
+            0%,100% { transform: rotate(0deg); }
+            30% { transform: rotate(-1.2deg); }
+            70% { transform: rotate(1.2deg); }
+        }
+        .counter {
+            position: absolute;
+            left: 20px;
+            right: 20px;
+            bottom: 0;
+            height: 72px;
+            background: #fffdf4;
+            border: 4px solid #403a32;
+            border-radius: 12px 12px 5px 5px;
+            box-shadow: 0 8px 0 rgba(112,80,38,.18);
+        }
+        .counter::before {
+            content: "";
+            position: absolute;
+            left: -2px;
+            right: -2px;
+            top: 12px;
+            height: 30px;
+            background: #f3c871;
+            border-radius: 0 0 40% 40%;
+            clip-path: polygon(0 0,100% 0,100% 78%,88% 78%,84% 45%,78% 45%,75% 100%,55% 100%,51% 58%,45% 58%,42% 100%,18% 100%,16% 56%,8% 56%,5% 92%,0 92%);
+        }
+        .counter::after {
+            content: "";
+            position: absolute;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            height: 12px;
+            background: #a2d9ca;
+            border: 4px solid #403a32;
+            border-top: 0;
+            border-radius: 0 0 4px 4px;
+        }
+        .shopkeeper {
+            position: absolute;
+            left: 104px;
+            bottom: 56px;
+            width: 84px;
+            height: 88px;
+            border-radius: 48% 48% 44% 44%;
+            background: #fff;
+            border: 4px solid #403a32;
+        }
+        .shopkeeper::before {
+            content: "";
+            position: absolute;
+            left: 12px;
+            top: -20px;
+            width: 54px;
+            height: 28px;
+            background: #f7d16a;
+            border: 4px solid #403a32;
+            border-radius: 50%;
+            box-shadow: inset 0 -9px 0 #fffef7;
+        }
+        .shopkeeper::after {
+            content: "⌣";
+            position: absolute;
+            left: 23px;
+            top: 23px;
+            font-size: 34px;
+            font-weight: 900;
+            color: #403a32;
+        }
+        .cup {
+            position: absolute;
+            left: 50px;
+            top: 42px;
+            width: 36px;
+            height: 44px;
+            background: linear-gradient(#fff5d5 0 18px, #f5b6c6 18px 34px, #ffd66f 34px);
+            border: 4px solid #403a32;
+            border-radius: 8px 8px 12px 12px;
+            transform: rotate(-8deg);
+        }
+        .customer {
+            position: absolute;
+            left: 50%;
+            top: 278px;
+            width: 94px;
+            height: 78px;
+            transform: translateX(-50%);
+            background: #fff;
+            border: 4px solid #403a32;
+            border-radius: 54% 54% 48% 48%;
+            z-index: 2;
+        }
+        .customer::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -4px;
+            height: 30px;
+            background: #fff;
+            clip-path: polygon(0 0,24% 0,34% 38%,50% 0,66% 38%,78% 0,100% 0,100% 100%,0 100%);
+        }
+        .sparkle {
+            position: absolute;
+            left: calc(50% - 106px);
+            top: 224px;
+            color: #d9a037;
+            font-size: 22px;
+            z-index: 2;
+        }
+        .coin-pop {
+            position: absolute;
+            left: 50%;
+            top: 190px;
+            transform: translateX(-50%);
+            z-index: 6;
+            padding: 6px 12px;
+            color: var(--orange);
+            font-size: 22px;
+            font-weight: 1000;
+            background: #fff;
+            border: 3px solid var(--line);
+            border-radius: 999px;
+            animation: floatUp 1s ease both;
+        }
+        @keyframes floatUp {
+            from { opacity: 0; transform: translate(-50%, 16px); }
+            30% { opacity: 1; }
+            to { opacity: 0; transform: translate(-50%, -16px); }
+        }
+
+        .queue-board {
+            position: absolute;
+            right: 18px;
+            top: 316px;
+            width: 104px;
+            z-index: 4;
+            text-align: center;
+        }
+        .countdown {
+            width: 100%;
+            margin: 0 auto -4px;
+            padding: 4px 6px;
+            border-radius: 999px;
+            background: rgba(91,85,76,.68);
+            color: #fff;
+            font-size: 14px;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+        .queue-sign {
+            padding: 14px 7px 13px;
+            background: #f7e5c7;
+            border: 5px solid #8c7253;
+            border-radius: 8px;
+            box-shadow: 0 4px 0 rgba(82,60,37,.18);
+            color: #9a7b55;
+            font-size: 17px;
+            font-weight: 900;
+            line-height: 1.25;
+        }
+
+        .interaction {
+            position: relative;
+            padding: 62px 28px 18px;
+        }
+        .status-row {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            min-height: 72px;
+        }
+        .partner-pill {
+            position: relative;
+            width: 206px;
+            height: 60px;
+            border: 5px solid #d89d35;
+            border-radius: 32px;
+            background: #fffaf1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            box-shadow: 0 5px 0 rgba(112,80,38,.12);
+        }
+        .urge {
+            position: absolute;
+            left: 50%;
+            top: -28px;
+            transform: translateX(-50%);
+            min-width: 74px;
+            padding: 5px 16px 6px;
+            background: #dea044;
+            color: #fff;
+            border-radius: 18px;
+            font-size: 16px;
+            font-weight: 900;
+            box-shadow: 0 3px 0 rgba(95,67,30,.18);
+        }
+        .person {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #ded8c9;
+            border: 3px solid #fff;
+            box-shadow: 0 0 0 2px #d2c7b7;
+            font-size: 19px;
+        }
+        .cube-count {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 22px;
+            font-weight: 900;
+            color: #5b5a59;
+        }
+        .cube-icon {
+            width: 23px;
+            height: 29px;
+            display: inline-block;
+            background: #e8c6a9;
+            border: 3px solid #9c7c5e;
+            clip-path: polygon(10% 0,90% 0,77% 100%,23% 100%);
+            transform: rotate(-7deg);
+        }
+        .divider {
+            width: 2px;
+            height: 28px;
+            background: #d5b391;
+        }
+        .get-cubes {
+            position: absolute;
+            right: 6px;
+            bottom: -4px;
+            width: 64px;
+            display: grid;
+            justify-items: center;
+            gap: 2px;
+            color: #6b6257;
+            font-size: 14px;
+            font-weight: 900;
+        }
+        .get-icon {
+            position: relative;
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: #fff0cf;
+            border: 5px solid #685c50;
+            display: grid;
+            place-items: center;
+            box-shadow: 0 4px 0 rgba(102,73,39,.14);
+        }
+        .get-icon .cube-icon { transform: rotate(-12deg) scale(1.3); }
+        .red-dot {
+            position: absolute;
+            right: 3px;
+            top: 1px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #e84a3a;
+            border: 2px solid #fff;
+        }
+        .primary-action {
+            width: 100%;
+            height: 72px;
+            margin-top: 24px;
+            border-radius: 38px;
+            border: 5px solid #4d4a45;
+            background: #f7c97f;
+            color: #4b4b50;
+            font-size: 25px;
+            font-weight: 900;
+            box-shadow: 0 5px 0 rgba(64,54,42,.18);
+        }
+        .primary-action:disabled {
+            opacity: .62;
+            transform: translateY(3px);
+            box-shadow: none;
+        }
+        .hint-line {
+            margin: 16px auto 0;
+            width: fit-content;
+            max-width: 100%;
+            padding: 8px 16px;
+            border-radius: 12px;
+            background: rgba(255,255,255,.86);
+            color: #9a8a78;
+            font-size: 18px;
+            font-weight: 900;
+            line-height: 1.25;
+            text-align: center;
+        }
+        .hint-line strong { color: var(--orange); font-size: 26px; }
+
+        .reward-board-wrap {
+            position: relative;
+            margin: 16px 18px 0;
+            padding-top: 38px;
+        }
+        .hanging-bar {
+            position: absolute;
+            left: 30px;
+            right: 30px;
+            top: 0;
+            height: 12px;
+            background: #b39368;
+            border-radius: 999px;
+        }
+        .hanging-bar::before,
+        .hanging-bar::after {
+            content: "";
+            position: absolute;
+            top: -15px;
+            width: 16px;
+            height: 54px;
+            border-radius: 10px;
+            background: #b39368;
+            border: 4px solid #9a7f5a;
+        }
+        .hanging-bar::before { left: 16px; }
+        .hanging-bar::after { right: 16px; }
+        .board-title {
+            position: absolute;
+            left: 50%;
+            top: -18px;
+            transform: translateX(-50%);
+            z-index: 2;
+            min-width: 202px;
+            padding: 10px 18px 12px;
+            color: #9a8062;
+            background: #f6edd9;
+            border: 4px solid #967349;
+            border-radius: 10px;
+            font-size: 21px;
+            font-weight: 1000;
+            text-align: center;
+            box-shadow: 0 3px 0 rgba(99,73,40,.12);
+        }
+        .reward-board {
+            position: relative;
+            padding: 42px 16px 28px;
+            border: 6px solid #9a8062;
+            border-radius: 22px;
+            background: rgba(255,253,247,.92);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+        .reward-board::before,
+        .reward-board::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-color: #e1d6c6;
+            opacity: .75;
+        }
+        .reward-board::before {
+            left: 16px;
+            top: 16px;
+            border-left: 4px solid;
+            border-top: 4px solid;
+            border-radius: 14px 0 0 0;
+        }
+        .reward-board::after {
+            right: 16px;
+            bottom: 16px;
+            border-right: 4px solid;
+            border-bottom: 4px solid;
+            border-radius: 0 0 14px 0;
+        }
+        .earned {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            color: #9a8062;
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+        .reward-grid {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 34px 22px;
+            padding: 5px 6px 18px;
+        }
+        .path-line {
+            position: absolute;
+            left: 25%;
+            right: 25%;
+            top: 53px;
+            bottom: 76px;
+            border-top: 5px dashed #e2e3d7;
+            border-right: 5px dashed #e2e3d7;
+            border-bottom: 5px dashed #e2e3d7;
+            border-radius: 0 52px 52px 0;
+            pointer-events: none;
+        }
+        .node {
+            position: relative;
+            display: grid;
+            justify-items: center;
+            z-index: 1;
+        }
+        .node:nth-child(4) { grid-column: 2; grid-row: 2; }
+        .node:nth-child(5) { grid-column: 1; grid-row: 2; }
+        .node-target {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 13px;
+            margin-bottom: 10px;
+            background: #fffef8;
+            border: 3px solid #d1ae7c;
+            border-radius: 999px;
+            color: #c79a62;
+            font-size: 24px;
+            font-weight: 900;
+        }
+        .reward-bundles {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 7px;
+            align-items: start;
+        }
+        .bundle {
+            position: relative;
+            min-height: 74px;
+            padding-top: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-content: flex-start;
+            gap: 4px;
+        }
+        .bundle-label {
+            position: absolute;
+            left: 50%;
+            top: -3px;
+            transform: translateX(-50%);
+            z-index: 2;
+            padding: 1px 5px 2px;
+            border-radius: 999px;
+            background: #d1c2aa;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 1000;
+            white-space: nowrap;
+        }
+        .bundle.paid .bundle-label { background: #85aabc; }
+        .reward-tile {
+            position: relative;
+            width: 33px;
+            height: 33px;
+            display: grid;
+            place-items: center;
+            border-radius: 10px;
+            border: 3px solid #e3d8c7;
+            background: var(--locked);
+            color: #7b7167;
+            font-size: 17px;
+            overflow: hidden;
+        }
+        .reward-tile .price {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 1px;
+            font-size: 9px;
+            color: #c7a36f;
+            font-weight: 900;
+            text-align: center;
+        }
+        .reward-tile.paid {
+            background: var(--blue);
+            border-color: var(--blue-line);
+        }
+        .reward-tile.active {
+            background: #fff5da;
+            border-color: #e9c075;
+        }
+        .lock {
+            position: absolute;
+            left: -3px;
+            bottom: -3px;
+            width: 16px;
+            height: 16px;
+            display: grid;
+            place-items: center;
+            border-radius: 5px;
+            background: #b99c62;
+            color: #fff4ca;
+            font-size: 9px;
+            border: 2px solid #e2ce93;
+        }
+        .discount {
+            position: absolute;
+            right: -8px;
+            top: -2px;
+            width: 28px;
+            height: 17px;
+            display: grid;
+            place-items: center;
+            transform: rotate(43deg);
+            transform-origin: center;
+            background: #c6d9e4;
+            border: 2px solid #8fb1c0;
+            color: #6e90a3;
+            font-size: 8px;
+            font-weight: 1000;
+        }
+        .direct-btn {
+            display: block;
+            width: 190px;
+            height: 58px;
+            margin: 18px auto 0;
+            border-radius: 30px;
+            background: #f6c77c;
+            color: #4b4b50;
+            font-size: 23px;
+            font-weight: 900;
+            box-shadow: 0 5px 0 rgba(96,73,45,.14);
+        }
+        .preview-title {
+            width: fit-content;
+            margin: 34px auto 18px;
+            padding: 9px 22px;
+            border-radius: 12px;
+            background: #e9dec9;
+            color: #9b8a75;
+            font-size: 24px;
+            font-weight: 1000;
+        }
+        .final-preview {
+            width: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 0 8px 0 rgba(112,80,38,.08);
+        }
+        .final-preview img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+        }
+
+        .modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,.46);
+            z-index: 30;
+        }
+        .sheet {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 84%;
+            z-index: 40;
+            display: flex;
+            flex-direction: column;
+            background: #fffaf0;
+            border-radius: 30px 30px 0 0;
+            border: 5px solid var(--line);
+            border-bottom: 0;
+            overflow: hidden;
+        }
+        .sheet-head {
+            position: relative;
+            min-height: 62px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 3px solid #ead4ae;
+            background: #fff5dc;
+        }
+        .sheet-head h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 1000;
+        }
+        .sheet-head .back-mini {
+            position: absolute;
+            left: 16px;
+            width: 36px;
+            height: 36px;
+            border: 3px solid var(--line-dark);
+            border-radius: 50%;
+            background: #fff;
+            font-size: 22px;
+            font-weight: 1000;
+        }
+        .sheet-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 18px 16px 28px;
+        }
+        .packs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 13px;
+            border: 4px solid var(--line);
+            border-radius: 18px;
+            background: #fff;
+            box-shadow: 0 4px 0 rgba(94,72,42,.12);
+        }
+        .pack {
+            position: relative;
+            min-height: 112px;
+            padding: 10px 7px 8px;
+            border-radius: 14px;
+            background: #f7f4ee;
+            border: 3px solid #e4d9c8;
+            display: grid;
+            justify-items: center;
+            gap: 6px;
+        }
+        .pack.hot {
+            background: #fff1d1;
+            border-color: #edbf73;
+        }
+        .tag-hot {
+            position: absolute;
+            right: -6px;
+            top: -8px;
+            padding: 2px 6px;
+            transform: rotate(12deg);
+            color: #fff;
+            background: #e4553d;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 1000;
+        }
+        .pack .amount {
+            font-size: 15px;
+            font-weight: 900;
+            color: #7a7168;
+        }
+        .buy-small {
+            width: 100%;
+            height: 31px;
+            border-radius: 999px;
+            background: #f4c56f;
+            color: #55493e;
+            font-size: 15px;
+            font-weight: 900;
+        }
+        .task-title {
+            margin: 22px 0 12px;
+            font-size: 20px;
+            font-weight: 1000;
+        }
+        .task-list {
+            display: grid;
+            gap: 12px;
+        }
+        .task-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            min-height: 74px;
+            padding: 10px 12px;
+            border: 4px solid var(--line-dark);
+            border-radius: 18px;
+            background: #fff;
+            box-shadow: 0 4px 0 rgba(92,67,38,.12);
+        }
+        .task-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 0;
+        }
+        .task-icon {
+            width: 42px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border-radius: 10px;
+            background: #fff0d5;
+            color: var(--orange);
+            font-size: 22px;
+            font-weight: 1000;
+            flex: 0 0 auto;
+        }
+        .task-name {
+            font-size: 16px;
+            font-weight: 1000;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .task-desc {
+            font-size: 12px;
+            color: #8f8274;
+            margin-top: 2px;
+        }
+        .task-btn {
+            flex: 0 0 auto;
+            min-width: 76px;
+            height: 36px;
+            padding: 0 13px;
+            border-radius: 999px;
+            border: 3px solid #4b463f;
+            background: #f6c66f;
+            font-size: 15px;
+            font-weight: 900;
+        }
+        .task-btn:disabled {
+            background: #e7e1d8;
+            color: #978b7e;
+            border-color: #c6baab;
+        }
+
+        .direct-page {
+            position: absolute;
+            inset: 0;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            background:
+                radial-gradient(circle at 85% 10%, rgba(249,216,138,.35) 0 14px, transparent 15px),
+                linear-gradient(#fffaf0 0 33%, #d8f0de 33% 41%, #fff7df 41%);
+        }
+        .direct-head {
+            height: 58px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            flex: 0 0 auto;
+        }
+        .balance {
+            position: absolute;
+            right: 16px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 13px;
+            border: 4px solid #9b8062;
+            border-radius: 999px;
+            background: #f3eadb;
+            font-size: 22px;
+            font-weight: 900;
+        }
+        .gem {
+            width: 30px;
+            height: 24px;
+            background: linear-gradient(135deg, #c8efff, #6dbce8);
+            border: 3px solid #5a8eb2;
+            clip-path: polygon(18% 0,82% 0,100% 38%,50% 100%,0 38%);
+        }
+        .direct-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 20px 140px;
+        }
+        .direct-preview {
+            height: 218px;
+            margin: 6px -4px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 0 0 22px 22px;
+        }
+        .direct-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .reward-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+        .column {
+            position: relative;
+            padding: 42px 18px 18px;
+            border: 4px solid #f1cf91;
+            border-radius: 22px;
+            background: rgba(255,255,255,.76);
+        }
+        .column.advanced {
+            background: #fff1d4;
+            border-color: #e0aa4d;
+        }
+        .col-title {
+            position: absolute;
+            left: 50%;
+            top: -22px;
+            transform: translateX(-50%);
+            min-width: 116px;
+            height: 46px;
+            display: grid;
+            place-items: center;
+            border-radius: 24px;
+            color: #fff;
+            background: #f2c67c;
+            font-size: 22px;
+            font-weight: 1000;
+            text-shadow: 0 2px 0 rgba(111,79,35,.12);
+        }
+        .column.advanced .col-title {
+            background: #e5a33a;
+        }
+        .crown {
+            position: absolute;
+            right: 26px;
+            top: -38px;
+            font-size: 36px;
+            transform: rotate(10deg);
+        }
+        .furniture-list {
+            display: grid;
+            gap: 14px;
+        }
+        .furniture-card {
+            display: grid;
+            justify-items: center;
+            gap: 8px;
+        }
+        .furniture-icon {
+            width: 78px;
+            height: 78px;
+            display: grid;
+            place-items: center;
+            border-radius: 18px;
+            background: #ebe6dd;
+            color: #6b6259;
+            font-size: 36px;
+        }
+        .advanced .furniture-icon {
+            background: #fff;
+            color: #df9a31;
+        }
+        .furniture-card span {
+            min-height: 36px;
+            color: #6d6762;
+            font-size: 17px;
+            line-height: 1.15;
+            font-weight: 800;
+            text-align: center;
+        }
+        .bottom-buy {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 14px 22px 24px;
+            background: linear-gradient(transparent, #fffaf0 18%, #fffaf0);
+        }
+        .unlock-all {
+            width: 100%;
+            height: 70px;
+            border-radius: 36px;
+            background: #f7c97f;
+            color: #4b4b50;
+            font-size: 22px;
+            font-weight: 1000;
+            box-shadow: 0 5px 0 rgba(98,73,42,.14);
+        }
+        .unlock-all:disabled {
+            opacity: .65;
+            box-shadow: none;
+        }
+        .tips {
+            margin-top: 13px;
+            color: #d68c1f;
+            font-size: 15px;
+            line-height: 1.35;
+            text-align: center;
+            font-weight: 800;
+        }
+        .tips span { color: #9a9a9a; }
+
+        .rule-modal {
+            width: min(340px, calc(100% - 38px));
+            padding: 24px 22px 22px;
+            border-radius: 24px;
+            border: 5px solid var(--line);
+            background: #fffaf0;
+            box-shadow: 0 12px 0 rgba(75,55,31,.15);
+            position: relative;
+        }
+        .rule-modal h2 {
+            margin: 0 0 18px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 1000;
+        }
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #eee3d2;
+            font-size: 18px;
+            font-weight: 900;
+        }
+        .rule-list {
+            display: grid;
+            gap: 11px;
+            color: #6a5e53;
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.45;
+        }
+        .rule-list p { margin: 0; }
+        .ok-btn {
+            width: 100%;
+            height: 48px;
+            margin-top: 20px;
+            border-radius: 24px;
+            background: #f6c66f;
+            border: 4px solid #4d463f;
+            font-size: 18px;
+            font-weight: 1000;
+        }
+        .toast {
+            position: absolute;
+            left: 50%;
+            top: 28%;
+            transform: translateX(-50%);
+            z-index: 80;
+            padding: 10px 16px;
+            border-radius: 12px;
+            background: rgba(54,48,42,.82);
+            color: #fff;
+            font-size: 15px;
+            white-space: nowrap;
+        }
+
+        .fade-enter-active, .fade-leave-active { transition: opacity .24s ease; }
+        .fade-enter-from, .fade-leave-to { opacity: 0; }
+        .slide-up-enter-active, .slide-up-leave-active { transition: transform .28s ease; }
+        .slide-up-enter-from, .slide-up-leave-to { transform: translateY(100%); }
+
+        @media (max-width: 380px) {
+            .title-logo { font-size: 30px; padding-inline: 13px; }
+            .target-card { top: 176px; width: 104px; }
+            .interaction { padding-inline: 18px; }
+            .reward-grid { gap: 32px 14px; }
+            .reward-tile { width: 30px; height: 30px; font-size: 15px; }
+            .bundle { gap: 3px; }
+            .column { padding-inline: 12px; }
+            .furniture-icon { width: 68px; height: 68px; }
         }
     </style>
 </head>
-<body class="bg-gray-100 h-[100dvh] w-screen overflow-hidden flex justify-center">
-    <div id="app" class="w-full max-w-md h-full bg-[#fffdf0] relative shadow-2xl overflow-hidden flex flex-col font-sans">
-        
-        <!-- ================= MAIN VIEW ================= -->
-        <div class="flex-1 scrollable bg-pattern flex flex-col relative pb-32">
-            
-            <!-- Header Area -->
-            <div class="p-4 pt-6 flex justify-between items-start relative z-10">
-                <button class="w-8 h-8 bg-white rounded-full flex items-center justify-center border-2 border-gray-800 shadow-sm btn-press">
-                    <i class="fa-solid fa-chevron-left text-gray-800"></i>
-                </button>
-                <div class="flex flex-col items-center">
-                    <div class="text-3xl font-black text-orange-500 drop-shadow-md tracking-wider stroke-white" style="-webkit-text-stroke: 1.5px white;">
-                        夏日刨冰小摊
-                    </div>
-                    <div class="mt-1 px-3 py-1 bg-[#d0a37c] text-white text-xs rounded-md shadow-inner">
-                        活动时间: 8.1 - 8.18
-                    </div>
-                </div>
-                <button class="w-8 h-8 bg-[#fcd34d] rounded-full flex items-center justify-center border-2 border-gray-800 shadow-sm btn-press" @click="showRuleModal = true">
-                    <i class="fa-solid fa-question text-gray-800 font-bold"></i>
-                </button>
+<body>
+    <div id="app" class="phone">
+        <main class="scrollable tile-floor">
+            <div class="topbar">
+                <button class="round-btn btn-press" aria-label="返回">‹</button>
+                <div></div>
+                <button class="round-btn help btn-press" aria-label="活动规则" @click="showRuleModal = true">?</button>
             </div>
 
-            <!-- Progress Target -->
-            <div class="absolute left-4 top-24 bg-[#fff1d0] border-2 border-[#d0a37c] rounded-xl p-2 flex flex-col items-center shadow-md">
-                <div class="text-[#8c6b4f] text-xs font-bold mb-1">小摊盈利目标</div>
-                <div class="flex items-center gap-1">
-                    <i class="fa-solid fa-coins text-yellow-500 text-lg drop-shadow-sm"></i>
-                    <span class="text-orange-500 font-bold text-lg">{{ coinsProgress }}<span class="text-gray-400 text-sm">/3000</span></span>
+            <section class="hero">
+                <div class="logo-wrap">
+                    <div class="title-logo">夏日刨冰</div>
+                    <div class="title-sub">小摊日记</div>
+                    <div class="date-ribbon">活动时间: 8.1-8.18</div>
                 </div>
-            </div>
-
-            <!-- Stall Scene -->
-            <div class="mt-8 min-h-[260px] flex flex-col justify-center items-center relative z-0">
-                <!-- Simple Stall Graphic -->
-                <div class="relative w-64 h-48 flex justify-center items-end" :class="{ 'shake': isMaking }">
-                    <div class="absolute bottom-0 w-full h-16 bg-[#7dd3fc] border-t-4 border-[#38bdf8] rounded-t-lg shadow-lg flex justify-around items-center px-4">
-                        <div class="w-8 h-8 bg-blue-200 rounded-full opacity-50"></div>
-                        <div class="w-8 h-8 bg-pink-200 rounded-full opacity-50"></div>
-                        <div class="w-8 h-8 bg-yellow-200 rounded-full opacity-50"></div>
-                    </div>
-                    <div class="absolute bottom-16 text-6xl drop-shadow-xl z-10" style="font-size: 80px;">🐻</div>
-                    <div class="absolute bottom-16 -right-4 text-4xl" v-if="isMaking">🍧</div>
-                    
-                    <!-- Floating text when getting coins -->
-                    <div v-if="showCoinAnim" class="absolute top-0 text-orange-500 font-bold text-2xl drop-shadow-md animate-bounce">
-                        +{{ lastEarnedCoins }} 冰块币
+                <div class="target-card">
+                    <div class="label">盈利总目标</div>
+                    <div class="coin-line">
+                        <span>{{ coinsProgress }}</span><span class="denom">/3000</span>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Interaction Area -->
-            <div class="px-4 pb-6 relative z-10 flex flex-col items-center gap-4">
-                
-                <!-- Status Row -->
-                <div class="w-full relative flex justify-center items-end h-16">
-                    <!-- Avatars & Cubes -->
-                    <div class="bg-white border-2 border-[#d0a37c] rounded-full px-3 py-1 flex items-center gap-3 shadow-md relative z-10">
-                        <button 
-                            @click="urgePartner"
-                            :disabled="hasUrged"
-                            class="absolute -top-3 left-1/2 -translate-x-1/2 text-white text-[10px] px-3 py-0.5 rounded-full shadow whitespace-nowrap transition-colors"
-                            :class="hasUrged ? 'bg-gray-400 cursor-not-allowed' : 'bg-orange-400 btn-press'">
-                            {{ hasUrged ? '已催促' : '催一催' }}
-                        </button>
-                        <div class="flex items-center gap-1">
-                            <div class="w-8 h-8 bg-blue-100 rounded-full border border-gray-300 overflow-hidden flex items-center justify-center text-sm">👦</div>
-                            <div class="flex flex-col items-center leading-tight">
-                                <i class="fa-solid fa-cube text-blue-400 text-xs"></i>
-                                <span class="text-sm font-bold text-gray-700">{{ myCubes }}</span>
-                            </div>
+            <section class="shop-scene">
+                <div class="wall-line"></div>
+                <div class="scene-prop plant">
+                    <span class="leaf l1"></span><span class="leaf l2"></span><span class="leaf l3"></span><span class="leaf l4"></span><span class="pot"></span>
+                </div>
+                <div class="scene-prop menu-board"></div>
+                <div class="sparkle">✦<br>✧</div>
+                <div class="stall" :class="{ making: isMaking }">
+                    <div class="counter"></div>
+                    <div class="shopkeeper"></div>
+                    <div class="cup"></div>
+                </div>
+                <div v-if="isMaking" class="customer"></div>
+                <div v-if="isMaking" class="queue-board">
+                    <div class="countdown">{{ countdownText }}</div>
+                    <div class="queue-sign">
+                        1位顾客<br>正在排队
+                    </div>
+                </div>
+                <div v-if="showCoinAnim" class="coin-pop">+{{ lastEarnedCoins }} 冰块币</div>
+            </section>
+
+            <section class="interaction">
+                <div class="status-row">
+                    <div class="partner-pill">
+                        <button class="urge btn-press" @click="urgePartner" :disabled="hasUrged">{{ hasUrged ? '已催促' : '催一催' }}</button>
+                        <div class="person">
+                            <div class="avatar">🧑</div>
+                            <div class="cube-count"><span class="cube-icon"></span>{{ myCubes }}</div>
                         </div>
-                        <div class="w-px h-6 bg-gray-300"></div>
-                        <div class="flex items-center gap-1">
-                            <div class="w-8 h-8 bg-pink-100 rounded-full border border-gray-300 overflow-hidden flex items-center justify-center text-sm">👧</div>
-                            <div class="flex flex-col items-center leading-tight">
-                                <i class="fa-solid fa-cube text-blue-400 text-xs opacity-60"></i>
-                                <span class="text-sm font-bold text-gray-500">{{ partnerCubes }}</span>
-                            </div>
+                        <div class="divider"></div>
+                        <div class="person">
+                            <div class="avatar">🐱</div>
+                            <div class="cube-count"><span class="cube-icon"></span>{{ partnerCubes }}</div>
                         </div>
                     </div>
-                    
-                    <!-- Get Cubes Btn -->
-                    <div class="absolute right-0 bottom-0 flex flex-col items-center btn-press cursor-pointer z-10" @click="showTaskModal = true">
-                        <div class="w-12 h-12 bg-[#ffe4e6] border-2 border-[#d0a37c] rounded-full flex items-center justify-center shadow-md mb-1 relative">
-                            <i class="fa-solid fa-cube text-blue-400 text-xl"></i>
-                            <div v-if="tasksCompleted < tasks.length" class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border border-white"></div>
-                        </div>
-                        <span class="text-xs font-bold text-gray-700">获取冰块</span>
-                    </div>
+                    <button class="get-cubes btn-press" @click="showTaskModal = true">
+                        <span class="get-icon">
+                            <span class="cube-icon"></span>
+                            <span v-if="tasksCompleted < tasks.length" class="red-dot"></span>
+                        </span>
+                        <span>获取冰块</span>
+                    </button>
                 </div>
 
-                <!-- Main Action Button -->
-                <button 
-                    @click="makeShavedIce"
-                    :disabled="myCubes < 1 || isMaking"
-                    class="w-full max-w-[280px] h-14 bg-gradient-to-b from-[#fcd34d] to-[#f59e0b] border-2 border-gray-800 rounded-full shadow-[0_4px_0_#b45309] text-gray-800 font-bold text-xl flex justify-center items-center gap-2 btn-press transition-transform disabled:opacity-50 disabled:shadow-none disabled:translate-y-1">
-                    <i class="fa-solid fa-spoon text-white drop-shadow-sm"></i>
-                    制作刨冰
+                <button class="primary-action btn-press" @click="makeShavedIce" :disabled="myCubes < 1 || isMaking">
+                    {{ isMaking ? '制作中...' : '制作刨冰' }}
                 </button>
-                <div class="text-gray-500 text-xs font-medium">
-                    再制作 <span class="text-orange-500 font-bold">10</span> 份刨冰，可吸引刨冰大佬
+                <div class="hint-line">
+                    <template v-if="isMaking">约 <strong>{{ makeSeconds }}</strong> 秒后完成，可获得冰块币</template>
+                    <template v-else>制作约 <strong>5</strong> 秒完成，完成后获得冰块币</template>
                 </div>
-            </div>
-            
-            <!-- Rewards Progress Section (Main Page Bottom) -->
-            <div class="mt-4 bg-[#fef9f0] border-t-4 border-[#d0a37c] rounded-t-3xl pt-8 pb-12 px-4 relative flex flex-col items-center shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-10">
-                <!-- Header -->
-                <div class="bg-[#e2c1a1] border-2 border-[#a67c52] rounded-xl px-8 py-2 font-bold text-[#5c4033] shadow-inner mb-6 relative">
-                    <span class="absolute -top-3 -left-2 bg-white rounded-full w-6 h-6 flex items-center justify-center shadow-sm text-yellow-500 text-xs border border-gray-200"><i class="fa-solid fa-star"></i></span>
-                    赚冰块币 解锁奖励
-                    <span class="absolute -top-3 -right-2 bg-white rounded-full w-6 h-6 flex items-center justify-center shadow-sm text-yellow-500 text-xs border border-gray-200"><i class="fa-solid fa-star"></i></span>
-                </div>
-                
-                <div class="text-sm font-bold text-[#8c6b4f] mb-8 flex items-center gap-2 bg-white px-4 py-1 rounded-full border border-[#d0a37c] shadow-sm">
-                    已赚取 <i class="fa-solid fa-coins text-yellow-500"></i> <span class="text-orange-500 text-lg">{{ coinsProgress }}</span> / 3000
-                </div>
+            </section>
 
-                <!-- Progress Path -->
-                <div class="w-full relative pb-10">
-                    <div class="absolute left-1/2 top-4 bottom-0 w-1 -translate-x-1/2 border-l-2 border-dashed border-[#d0a37c]"></div>
-                    <div class="flex flex-col gap-12 relative z-10">
-                        <div v-for="(node, index) in rewardNodes" :key="node.target" class="flex flex-col items-center">
-                            <!-- Target Pill -->
-                            <div class="bg-white border-2 border-[#d0a37c] rounded-full px-4 py-1 mb-4 flex items-center gap-2 shadow-sm"
-                                 :class="{'bg-[#fff1d0]': coinsProgress >= node.target}">
-                                <i class="fa-solid fa-coins text-yellow-500"></i>
-                                <span class="font-bold text-[#8c6b4f]">{{ node.target }}</span>
-                            </div>
-                            
-                            <!-- Rewards Row -->
-                            <div class="flex w-full justify-between px-2">
-                                <!-- Free Rewards Column -->
-                                <div class="flex flex-wrap gap-1.5 justify-end w-[48%]">
-                                    <div v-for="n in node.freeCount" :key="'f'+n" class="w-[52px] h-[68px] bg-[#f3f4f6] rounded-lg border-2 border-gray-300 p-1 flex flex-col items-center justify-center relative shrink-0"
-                                         :class="{'border-green-400 bg-green-50': coinsProgress >= node.target}">
-                                        <div v-if="n === 1" class="absolute -top-2.5 left-1/2 -translate-x-1/2 bg-gray-400 text-white text-[9px] px-1.5 py-0.5 rounded-full z-10 whitespace-nowrap">免费</div>
-                                        <i class="fa-solid fa-chair text-xl text-gray-400 my-1" :class="{'text-green-500': coinsProgress >= node.target}"></i>
-                                        <span class="text-[9px] text-gray-600 font-bold text-center leading-tight">基础<br>家具</span>
-                                        <div v-if="coinsProgress >= node.target" class="absolute -bottom-2 bg-green-500 text-white text-[8px] px-1 rounded-full border border-white z-10 whitespace-nowrap transform scale-90">已获得</div>
+            <section class="reward-board-wrap">
+                <div class="hanging-bar"></div>
+                <div class="board-title">赚冰块币 解锁奖励</div>
+                <div class="reward-board">
+                    <div class="earned">已赚取 <span class="coin">币</span><strong>{{ coinsProgress }}</strong>/3000</div>
+                    <div class="reward-grid">
+                        <div class="path-line"></div>
+                        <div v-for="node in rewardNodes" :key="node.target" class="node">
+                            <div class="node-target"><span class="coin">币</span>{{ node.target }}</div>
+                            <div class="reward-bundles">
+                                <div class="bundle free">
+                                    <span class="bundle-label">普通x{{ node.freeItems.length }}</span>
+                                    <div v-for="(item, itemIndex) in node.freeItems" :key="node.target + '-free-' + itemIndex" class="reward-tile" :class="{ active: coinsProgress >= node.target }">
+                                        <span>{{ item.icon }}</span>
+                                        <span v-if="item.price" class="price">{{ item.price }}</span>
+                                        <span v-if="coinsProgress < node.target" class="lock">🔒</span>
                                     </div>
                                 </div>
-                                
-                                <!-- Paid Rewards Column -->
-                                <div class="flex flex-wrap gap-1.5 justify-start w-[48%] relative">
-                                    <div v-if="node.paidCount > 0" class="absolute -top-3 right-0 bg-gradient-to-r from-blue-400 to-indigo-500 text-white text-[9px] px-1.5 py-0.5 rounded-tl-lg rounded-br-lg rounded-tr-sm rounded-bl-sm shadow-sm italic font-bold z-20">进阶</div>
-                                    <div v-for="n in node.paidCount" :key="'p'+n" class="w-[52px] h-[68px] bg-[#eff6ff] rounded-lg border-2 border-blue-200 p-1 flex flex-col items-center justify-center relative shrink-0"
-                                         :class="{'border-blue-400': coinsProgress >= node.target}">
-                                        <div v-if="coinsProgress < node.target" class="absolute inset-0 bg-white/60 flex items-center justify-center rounded-lg backdrop-blur-[1px] z-10">
-                                            <i class="fa-solid fa-lock text-gray-500 text-sm"></i>
-                                        </div>
-                                        <i class="fa-solid fa-store text-xl text-blue-400 my-1"></i>
-                                        <span class="text-[9px] text-gray-600 font-bold text-center leading-tight">豪华<br>家具</span>
-                                        <div v-if="node.purchased" class="absolute -bottom-2 bg-gray-400 text-white text-[8px] px-1 rounded-full border border-white z-20 whitespace-nowrap transform scale-90">已拥有</div>
+                                <div class="bundle paid">
+                                    <span class="bundle-label">进阶x{{ node.paidItems.length }}</span>
+                                    <div v-for="(item, itemIndex) in node.paidItems" :key="node.target + '-paid-' + itemIndex" class="reward-tile paid" :class="{ active: node.purchased }">
+                                        <span>{{ item.icon }}</span>
+                                        <span class="discount">8折</span>
+                                        <span v-if="coinsProgress < node.target" class="lock">🔒</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <button class="direct-btn btn-press" @click="showDirectPurchaseModal = true">去直购 &gt;</button>
                 </div>
 
-                <!-- Go to Direct Purchase -->
-                <button @click="showDirectPurchaseModal = true" class="mt-8 bg-gradient-to-b from-[#fcd34d] to-[#f59e0b] border-2 border-gray-800 text-gray-800 px-12 py-3 rounded-full font-bold text-lg shadow-[0_4px_0_#b45309] btn-press transition-transform">
-                    去直购 >
-                </button>
-
-                <!-- Final Preview -->
-                <div class="mt-12 w-full flex flex-col items-center">
-                    <div class="bg-[#e5e0d8] text-[#8c6b4f] px-6 py-1 rounded-md font-bold mb-4">最终奖励预览</div>
-                    <div class="w-full h-56 bg-white border-2 border-gray-200 rounded-xl shadow-sm flex justify-center items-center overflow-hidden relative">
-                        <div class="text-7xl z-10">🏪🍧🏖️</div>
-                        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-blue-50/50"></div>
-                    </div>
+                <div class="preview-title">最终奖励预览</div>
+                <div class="final-preview">
+                    <img src="./image.png" alt="最终奖励预览">
                 </div>
-            </div>
-            
-        </div>
+            </section>
+        </main>
 
-        <!-- ================= MODALS ================= -->
-
-        <!-- Task & Store Modal -->
         <transition name="fade">
-            <div v-if="showTaskModal" class="absolute inset-0 bg-black/60 z-30" @click="showTaskModal = false"></div>
+            <div v-if="showTaskModal" class="modal-backdrop" @click="showTaskModal = false"></div>
         </transition>
         <transition name="slide-up">
-            <div v-if="showTaskModal" class="absolute bottom-0 w-full h-[85%] bg-[#fffcf0] rounded-t-3xl shadow-2xl z-40 flex flex-col">
-                <div class="relative flex justify-center items-center p-4 border-b border-gray-200">
-                    <button class="absolute left-4 w-8 h-8 bg-white border border-gray-300 rounded-full flex items-center justify-center btn-press" @click="showTaskModal = false">
-                        <i class="fa-solid fa-chevron-left text-gray-600"></i>
-                    </button>
-                    <h2 class="text-xl font-bold text-gray-800">获取冰块</h2>
-                    <span class="absolute right-4 text-sm text-gray-500">明细</span>
+            <section v-if="showTaskModal" class="sheet">
+                <div class="sheet-head">
+                    <button class="back-mini btn-press" @click="showTaskModal = false">‹</button>
+                    <h2>获取冰块</h2>
                 </div>
-                
-                <div class="flex-1 scrollable p-4 flex flex-col gap-6">
-                    <!-- Store Section -->
-                    <div class="bg-white border-2 border-[#d0a37c] rounded-xl p-3 shadow-sm flex justify-between gap-2">
-                        <!-- Small Pack -->
-                        <div class="flex-1 flex flex-col items-center gap-1">
-                            <div class="w-full h-16 bg-[#f8f9fa] rounded-lg border border-gray-200 flex flex-col items-center justify-center">
-                                <i class="fa-solid fa-cube text-blue-400 text-xl"></i>
-                                <span class="text-xs text-gray-600 mt-1">10个</span>
-                            </div>
-                            <button class="w-full bg-[#e5e7eb] rounded-full py-1 text-xs font-bold text-gray-700 flex justify-center items-center gap-1 btn-press">
-                                <i class="fa-solid fa-gem text-blue-500"></i> 30
-                            </button>
+                <div class="sheet-body">
+                    <div class="packs">
+                        <div class="pack">
+                            <span class="cube-icon"></span>
+                            <div class="amount">10个</div>
+                            <button class="buy-small btn-press">贝壳 30</button>
                         </div>
-                        <!-- Medium Pack -->
-                        <div class="flex-1 flex flex-col items-center gap-1 relative">
-                            <div class="w-full h-16 bg-[#f8f9fa] rounded-lg border border-gray-200 flex flex-col items-center justify-center">
-                                <div class="flex">
-                                    <i class="fa-solid fa-cube text-blue-400 text-xl -mr-2"></i>
-                                    <i class="fa-solid fa-cube text-blue-500 text-xl z-10 mt-2"></i>
-                                    <i class="fa-solid fa-cube text-blue-400 text-xl -ml-2"></i>
-                                </div>
-                                <span class="text-xs text-gray-600 mt-1">50个</span>
-                            </div>
-                            <button class="w-full bg-[#fcd34d] rounded-full py-1 text-xs font-bold text-gray-800 flex justify-center items-center gap-1 btn-press" @click="buyIce(50, 180)">
-                                <i class="fa-solid fa-paw text-orange-500"></i> 180
-                            </button>
+                        <div class="pack">
+                            <span class="cube-icon"></span>
+                            <div class="amount">50个</div>
+                            <button class="buy-small btn-press" @click="buyIce(50, 180)">猫爪 180</button>
                         </div>
-                        <!-- Large Pack -->
-                        <div class="flex-1 flex flex-col items-center gap-1 relative">
-                            <div class="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] px-1 rounded transform rotate-12 z-10 shadow">超值</div>
-                            <div class="w-full h-16 bg-[#f8f9fa] rounded-lg border border-orange-200 flex flex-col items-center justify-center bg-orange-50">
-                                <div class="flex relative">
-                                    <i class="fa-solid fa-cube text-blue-300 text-xl absolute -left-4 top-1"></i>
-                                    <i class="fa-solid fa-cube text-blue-400 text-xl absolute -right-4 top-1"></i>
-                                    <i class="fa-solid fa-cube text-blue-500 text-2xl z-10"></i>
-                                </div>
-                                <span class="text-xs text-gray-600 mt-1">100个</span>
-                            </div>
-                            <button class="w-full bg-[#f59e0b] rounded-full py-1 text-xs font-bold text-white flex justify-center items-center gap-1 btn-press" @click="buyIce(100, 300)">
-                                <i class="fa-solid fa-paw text-white"></i> 300
-                            </button>
+                        <div class="pack hot">
+                            <span class="tag-hot">超值</span>
+                            <span class="cube-icon"></span>
+                            <div class="amount">100个</div>
+                            <button class="buy-small btn-press" @click="buyIce(100, 300)">猫爪 300</button>
                         </div>
                     </div>
 
-                    <!-- Tasks Section -->
-                    <div>
-                        <h3 class="text-gray-800 font-bold mb-3 flex items-center gap-2">
-                            做任务 得冰块
-                        </h3>
-                        <div class="flex flex-col gap-3">
-                            <div v-for="(task, index) in tasks" :key="index" class="bg-white border-2 border-gray-800 rounded-xl p-3 flex justify-between items-center shadow-sm">
-                                <div class="flex items-center gap-3">
-                                    <div class="relative">
-                                        <i class="fa-solid fa-clipboard-list text-3xl text-orange-200"></i>
-                                        <div class="absolute inset-0 flex items-center justify-center flex-col text-[10px] font-bold text-gray-700">
-                                            <i class="fa-solid fa-cube text-blue-500 mb-0.5"></i>
-                                            x{{ task.reward }}
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="font-bold text-gray-800 text-sm">{{ task.name }}</div>
-                                        <div class="text-xs text-gray-500">{{ task.desc }}</div>
-                                    </div>
+                    <div class="task-title">做任务 得冰块</div>
+                    <div class="task-list">
+                        <div v-for="(task, index) in tasks" :key="task.name" class="task-item">
+                            <div class="task-info">
+                                <div class="task-icon">x{{ task.reward }}</div>
+                                <div>
+                                    <div class="task-name">{{ task.name }}</div>
+                                    <div class="task-desc">{{ task.desc }}</div>
                                 </div>
-                                <button 
-                                    @click="completeTask(index)"
-                                    :disabled="task.completed"
-                                    :class="task.completed ? 'bg-gray-200 text-gray-500 border-gray-300' : 'bg-[#fcd34d] text-gray-800 border-gray-800 shadow-[0_2px_0_#4b5563] btn-press'"
-                                    class="px-4 py-1.5 rounded-full font-bold text-sm border-2 disabled:shadow-none disabled:translate-y-0.5">
-                                    {{ task.completed ? '已完成' : (task.actionText || '去完成') }}
-                                </button>
                             </div>
+                            <button class="task-btn btn-press" @click="completeTask(index)" :disabled="task.completed">
+                                {{ task.completed ? '已完成' : (task.actionText || '去完成') }}
+                            </button>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
         </transition>
 
-        <!-- Direct Purchase Modal -->
         <transition name="slide-up">
-            <div v-if="showDirectPurchaseModal" class="absolute inset-0 bg-[#fffdf0] z-50 flex flex-col">
-                <!-- Header (Fixed) -->
-                <div class="absolute top-0 left-0 right-0 flex justify-center items-center p-4 z-10 bg-[#fffdf0]">
-                    <button class="absolute left-4 w-8 h-8 bg-white border-2 border-gray-800 rounded-full flex items-center justify-center btn-press" @click="showDirectPurchaseModal = false">
-                        <i class="fa-solid fa-chevron-left text-gray-800"></i>
-                    </button>
-                    <div class="absolute right-4 flex items-center gap-1 bg-white px-3 py-1 rounded-full border-2 border-gray-800 shadow-sm">
-                        <i class="fa-solid fa-paw text-orange-500"></i>
-                        <span class="font-bold">{{ catCoins }}</span>
-                    </div>
+            <section v-if="showDirectPurchaseModal" class="direct-page">
+                <div class="direct-head">
+                    <button class="round-btn btn-press" aria-label="返回" style="position:absolute;left:16px;width:42px;height:42px" @click="showDirectPurchaseModal = false">‹</button>
+                    <div class="balance"><span class="gem"></span>{{ catCoins }}</div>
                 </div>
-
-                <!-- Scrollable Content -->
-                <div class="flex-1 scrollable px-4 pb-32 flex flex-col items-center pt-16">
-                    <!-- Top Preview Image -->
-                    <div class="w-full h-48 rounded-xl shadow-sm mb-6 flex justify-center items-center overflow-hidden relative shrink-0">
-                        <img src="./image.png" alt="豪华小摊预览" class="w-full h-full object-cover">
-                        <div class="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/30 to-transparent"></div>
+                <div class="direct-body">
+                    <div class="direct-preview">
+                        <img src="./image.png" alt="豪华小摊预览">
                     </div>
 
-                    <!-- Columns -->
-                    <div class="w-full flex gap-4">
-                        <!-- Left Column: Normal Rewards -->
-                        <div class="flex-1 flex flex-col items-center bg-white border-2 border-orange-100 rounded-2xl p-2 shadow-sm relative">
-                            <div class="bg-orange-100 text-orange-600 font-bold px-4 py-1 rounded-full text-sm -mt-5 mb-4 border-2 border-white shadow-sm">普通奖励</div>
-                            
-                            <div class="w-full flex flex-col gap-2">
-                                <div v-for="(item, index) in freeFurnitures" :key="'free'+index" class="w-full h-24 bg-gray-50 rounded-xl p-2 flex flex-col items-center justify-center border border-gray-100">
-                                    <i class="fa-solid" :class="item.icon" class="text-2xl text-gray-400 my-1"></i>
-                                    <span class="text-xs text-gray-500 font-bold text-center leading-tight">{{ item.name }}</span>
+                    <div class="reward-columns">
+                        <div class="column">
+                            <div class="col-title">普通奖励</div>
+                            <div class="furniture-list">
+                                <div v-for="item in freeFurnitures" :key="item.name" class="furniture-card">
+                                    <div class="furniture-icon">{{ item.icon }}</div>
+                                    <span>{{ item.name }}</span>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Right Column: Advanced Rewards -->
-                        <div class="flex-1 flex flex-col items-center bg-white border-2 border-orange-300 rounded-2xl p-2 shadow-sm relative">
-                            <i class="fa-solid fa-crown absolute -top-6 right-2 text-yellow-500 text-xl drop-shadow-sm transform rotate-12"></i>
-                            <div class="bg-gradient-to-r from-orange-400 to-orange-500 text-white font-bold px-4 py-1 rounded-full text-sm -mt-5 mb-4 border-2 border-white shadow-sm">进阶奖励</div>
-                            
-                            <div class="w-full flex flex-col gap-2">
-                                <div v-for="(item, index) in paidFurnitures" :key="'paid'+index" class="w-full h-24 bg-orange-50 rounded-xl p-2 flex flex-col items-center justify-center border border-orange-100" :class="{'h-[4.2rem]': index > 7 && index <= 9}">
-                                    <i class="fa-solid" :class="item.icon" class="text-2xl text-orange-400 my-1"></i>
-                                    <span class="text-xs text-gray-600 font-bold text-center leading-tight">{{ item.name }}</span>
+                        <div class="column advanced">
+                            <div class="crown">♕</div>
+                            <div class="col-title">进阶奖励</div>
+                            <div class="furniture-list">
+                                <div v-for="item in paidFurnitures" :key="item.name" class="furniture-card">
+                                    <div class="furniture-icon">{{ item.icon }}</div>
+                                    <span>{{ item.name }}</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Sticky Bottom Bar for Purchase -->
-                <div class="absolute bottom-0 w-full p-4 bg-white border-t border-gray-200 shadow-[0_-4px_10px_rgba(0,0,0,0.05)]">
-                    <button 
-                        @click="buyAll"
-                        :disabled="coinsProgress < 3000 || allPurchased"
-                        class="w-full h-14 bg-gradient-to-r from-[#fcd34d] to-[#f59e0b] border-2 border-gray-800 rounded-full text-gray-800 font-bold text-xl shadow-[0_4px_0_#b45309] flex justify-center items-center gap-2 btn-press disabled:opacity-50 disabled:shadow-none disabled:translate-y-1">
-                        <template v-if="allPurchased">
-                            <i class="fa-solid fa-check-circle"></i> 已集齐
-                        </template>
-                        <template v-else-if="coinsProgress < 3000">
-                            <i class="fa-solid fa-lock"></i> 进度不足 3000 无法解锁
-                        </template>
-                        <template v-else>
-                            <i class="fa-solid fa-paw"></i> {{ remainingPrice }} 猫爪币 全部解锁
-                        </template>
+                <div class="bottom-buy">
+                    <button class="unlock-all btn-press" @click="buyAll" :disabled="coinsProgress < 3000 || allPurchased">
+                        <template v-if="allPurchased">已集齐</template>
+                        <template v-else-if="coinsProgress < 3000"><span class="gem" style="display:inline-block;vertical-align:-5px;margin-right:8px"></span>进度不足 3000</template>
+                        <template v-else><span class="gem" style="display:inline-block;vertical-align:-5px;margin-right:8px"></span>{{ remainingPrice }} 猫爪币 全部解锁</template>
                     </button>
-                    <div class="text-center text-gray-400 text-[10px] mt-3 leading-tight">
-                        小tips: 猫爪币价格会根据实际进度做出相应调整<br>(已获取过的奖励不会重复发放)
+                    <div class="tips">小tips: 猫爪币价格会根据实际进度做出相应调整<br><span>(已获取过的奖励不会重复发放)</span></div>
+                </div>
+            </section>
+        </transition>
+
+        <transition name="fade">
+            <div v-if="showRuleModal" class="modal-backdrop" style="display:grid;place-items:center;z-index:60">
+                <div class="rule-modal">
+                    <button class="close-btn btn-press" @click="showRuleModal = false">×</button>
+                    <h2>活动规则</h2>
+                    <div class="rule-list">
+                        <p>活动期间，完成任务可获得<span style="color:#4b9fc7;font-weight:1000">冰块</span>。</p>
+                        <p>使用冰块制作刨冰，完成后可获得<span style="color:#d68c1f;font-weight:1000">冰块币</span>。</p>
+                        <p>你的冰块仅你自己可使用，双方冰块不共享。</p>
+                        <p>你和 TA 获得的冰块币会共同累计，一起解锁活动奖励。</p>
+                        <p>冰块币达到指定进度后，可领取免费家具，并解锁高级家具折扣购买资格。</p>
+                        <p>活动结束后未消耗冰块清空，已达成未领取的基础奖励自动补发，直购入口关闭。</p>
                     </div>
+                    <button class="ok-btn btn-press" @click="showRuleModal = false">我知道啦</button>
                 </div>
             </div>
         </transition>
 
-        <!-- Rule Modal -->
         <transition name="fade">
-            <div v-if="showRuleModal" class="absolute inset-0 bg-black/60 z-50 flex justify-center items-center p-4">
-                <div class="bg-[#fffdf0] w-full max-w-sm rounded-2xl p-6 shadow-xl relative transform transition-all">
-                    <!-- Close button -->
-                    <button class="absolute top-4 right-4 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center btn-press" @click="showRuleModal = false">
-                        <i class="fa-solid fa-xmark text-gray-500"></i>
-                    </button>
-                    
-                    <h2 class="text-xl font-bold text-center text-[#5c4033] mb-6 relative">
-                        <span class="relative z-10">活动规则</span>
-                        <div class="absolute bottom-1 left-1/2 -translate-x-1/2 w-20 h-2 bg-[#fcd34d] -z-10 rounded-full"></div>
-                    </h2>
-                    
-                    <div class="space-y-4 text-sm text-gray-700 leading-relaxed font-medium">
-                        <div class="flex items-start gap-2">
-                            <i class="fa-solid fa-star text-yellow-500 mt-1 shrink-0"></i>
-                            <p>活动期间，完成任务可获得<span class="text-blue-500 font-bold">冰块</span></p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <i class="fa-solid fa-star text-yellow-500 mt-1 shrink-0"></i>
-                            <p>使用冰块制作刨冰，完成后可获得<span class="text-orange-500 font-bold">冰块币</span></p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <i class="fa-solid fa-star text-yellow-500 mt-1 shrink-0"></i>
-                            <p>你的冰块仅你自己可使用，双方冰块<span class="text-red-500 font-bold">不共享</span></p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <i class="fa-solid fa-star text-yellow-500 mt-1 shrink-0"></i>
-                            <p>你和 TA 获得的冰块币会共同累计，一起解锁活动奖励</p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <i class="fa-solid fa-star text-yellow-500 mt-1 shrink-0"></i>
-                            <p>冰块币达到指定进度后，可领取<span class="text-green-600 font-bold">免费家具</span>，并解锁<span class="text-purple-600 font-bold">高级家具</span>购买资格</p>
-                        </div>
-                        <div class="flex items-start gap-2">
-                            <i class="fa-solid fa-star text-yellow-500 mt-1 shrink-0"></i>
-                            <p>高级家具需要使用<span class="text-orange-600 font-bold">猫爪币</span>购买</p>
-                        </div>
-                    </div>
-                    
-                    <button @click="showRuleModal = false" class="w-full mt-8 bg-gradient-to-b from-[#fcd34d] to-[#f59e0b] border-2 border-gray-800 text-gray-800 py-3 rounded-full font-bold text-lg shadow-[0_4px_0_#b45309] btn-press">
-                        我知道啦
-                    </button>
-                </div>
-            </div>
-        </transition>
-
-        <!-- Toast Notification -->
-        <transition name="fade">
-            <div v-if="toastMsg" class="absolute top-1/4 left-1/2 -translate-x-1/2 bg-black/70 text-white px-4 py-2 rounded-lg text-sm z-50 whitespace-nowrap">
-                {{ toastMsg }}
-            </div>
+            <div v-if="toastMsg" class="toast">{{ toastMsg }}</div>
         </transition>
     </div>
 
     <script>
-        const { createApp, ref, computed } = Vue;
+        const { createApp, ref, computed, onBeforeUnmount } = Vue;
 
         createApp({
             setup() {
-                // State
-                const myCubes = ref(0);
-                const partnerCubes = ref(15);
+                const myCubes = ref(19);
+                const partnerCubes = ref(0);
                 const coinsProgress = ref(0);
                 const catCoins = ref(10000);
-                
-                // UI State
+
                 const showTaskModal = ref(false);
                 const showDirectPurchaseModal = ref(false);
                 const showRuleModal = ref(false);
                 const isMaking = ref(false);
+                const makeSeconds = ref(5);
                 const showCoinAnim = ref(false);
                 const lastEarnedCoins = ref(0);
                 const toastMsg = ref('');
                 const hasUrged = ref(false);
+                let makeTimer = null;
+                let toastTimer = null;
 
-                // Tasks Data
                 const tasks = ref([
                     { name: '每日签到', desc: '打卡！滴~', reward: 15, completed: false, actionText: '签到' },
                     { name: '两人参与活动', desc: '两人都制作刨冰即可完成', reward: 15, completed: false },
@@ -487,55 +1507,71 @@
                     { name: '累计签到(0/7)', desc: '累计签到7天领取大奖', reward: 70, completed: false, actionText: '明日继续' }
                 ]);
 
-                // Rewards Data
                 const rewardNodes = ref([
-                    { target: 500, freeCount: 2, paidCount: 2, price: 300, purchased: false },
-                    { target: 1000, freeCount: 2, paidCount: 2, price: 600, purchased: false },
-                    { target: 2000, freeCount: 2, paidCount: 3, price: 900, purchased: false },
-                    { target: 3000, freeCount: 3, paidCount: 3, price: 1800, purchased: false },
+                    {
+                        target: 500,
+                        freeItems: [{ icon: '🖼️' }, { icon: '▫️' }],
+                        paidItems: [{ icon: '🐱' }, { icon: '🪟' }],
+                        price: 300,
+                        purchased: false
+                    },
+                    {
+                        target: 1000,
+                        freeItems: [{ icon: '🐚' }, { icon: '🧊' }],
+                        paidItems: [{ icon: '🧊' }, { icon: '📋' }],
+                        price: 600,
+                        purchased: false
+                    },
+                    {
+                        target: 2000,
+                        freeItems: [{ icon: '🏪' }, { icon: '🪧' }],
+                        paidItems: [{ icon: '🍋' }, { icon: '🪟' }, { icon: '✨' }],
+                        price: 900,
+                        purchased: false
+                    },
+                    {
+                        target: 3000,
+                        freeItems: [{ icon: '🪑' }, { icon: '🥣' }, { icon: '💡' }],
+                        paidItems: [{ icon: '🛏️' }, { icon: '⛱️' }, { icon: '🚪' }],
+                        price: 1800,
+                        purchased: false
+                    }
                 ]);
 
-                // Detailed Furnitures for Direct Purchase View
                 const freeFurnitures = ref([
-                    { name: '夏日小摊墙纸', icon: 'fa-image' },
-                    { name: '沙滩夏日地板', icon: 'fa-border-all' },
-                    { name: '刨冰小摊地垫', icon: 'fa-rug' },
-                    { name: '冰块桶', icon: 'fa-bucket' },
-                    { name: '刨冰工作台', icon: 'fa-table' },
-                    { name: '刨冰小招牌', icon: 'fa-sign-hanging' },
-                    { name: '等候椅', icon: 'fa-chair' },
-                    { name: '刨冰碗摆台', icon: 'fa-bowl-food' },
-                    { name: '小灯串装饰', icon: 'fa-lightbulb' }
+                    { name: '夏日小摊墙纸', icon: '🖼️' },
+                    { name: '沙滩夏日地板', icon: '▫️' },
+                    { name: '刨冰小摊地垫', icon: '🐚' },
+                    { name: '冰块桶', icon: '🧊' },
+                    { name: '刨冰工作台', icon: '🍧' },
+                    { name: '刨冰小招牌', icon: '🪧' },
+                    { name: '等候椅', icon: '🪑' },
+                    { name: '刨冰碗摆台', icon: '🥣' },
+                    { name: '小灯串装饰', icon: '💡' }
                 ]);
 
                 const paidFurnitures = ref([
-                    { name: '夏日甜品主座', icon: 'fa-bed' },
-                    { name: '豪华遮阳躺椅', icon: 'fa-umbrella-beach' },
-                    { name: '冰柜配料车', icon: 'fa-cart-flatbed' },
-                    { name: '夏日菜单牌', icon: 'fa-clipboard-list' },
-                    { name: '水果配料架', icon: 'fa-bars-staggered' },
-                    { name: '摊位窗', icon: 'fa-window-maximize' },
-                    { name: '夏日小摊门', icon: 'fa-door-open' },
-                    { name: '霓虹招牌挂饰', icon: 'fa-bolt' },
-                    { name: '小猫围裙摆件', icon: 'fa-cat' },
-                    { name: '正面展示窗', icon: 'fa-window-restore' }
+                    { name: '夏日甜品主座', icon: '🛏️' },
+                    { name: '豪华遮阳躺椅', icon: '⛱️' },
+                    { name: '冰柜配料车', icon: '🧊' },
+                    { name: '夏日菜单牌', icon: '📋' },
+                    { name: '水果配料架', icon: '🍋' },
+                    { name: '摊位窗', icon: '🪟' },
+                    { name: '夏日小摊门', icon: '🚪' },
+                    { name: '霓虹招牌挂饰', icon: '✨' },
+                    { name: '小猫围裙摆件', icon: '🐱' },
+                    { name: '正面展示窗', icon: '🏪' }
                 ]);
 
-                // Computed
                 const tasksCompleted = computed(() => tasks.value.filter(t => t.completed).length);
-                
                 const allPurchased = computed(() => rewardNodes.value.every(n => n.purchased));
-                
-                const remainingPrice = computed(() => {
-                    return rewardNodes.value.reduce((total, node) => {
-                        return total + (node.purchased ? 0 : node.price);
-                    }, 0);
-                });
+                const remainingPrice = computed(() => rewardNodes.value.reduce((total, node) => total + (node.purchased ? 0 : node.price), 0));
+                const countdownText = computed(() => `00:0${isMaking.value ? makeSeconds.value : 5} 后完成`);
 
-                // Methods
                 const showToast = (msg) => {
                     toastMsg.value = msg;
-                    setTimeout(() => toastMsg.value = '', 2000);
+                    clearTimeout(toastTimer);
+                    toastTimer = setTimeout(() => toastMsg.value = '', 2000);
                 };
 
                 const urgePartner = () => {
@@ -561,53 +1597,32 @@
                     }
                 };
 
-                const makeShavedIce = () => {
-                    if (myCubes.value < 1 || isMaking.value) return;
-                    
-                    isMaking.value = true;
-                    myCubes.value -= 1;
-                    
-                    // Logic: 1 cube = ~2 coins. Chance for big eater (5) or boss (9)
-                    setTimeout(() => {
-                        isMaking.value = false;
-                        
-                        const rand = Math.random();
-                        let earned = 2;
-                        let msg = '';
-                        
-                        if (rand > 0.95) {
-                            earned = 9; // 刨冰大佬
-                            msg = '遇到刨冰大佬！';
-                        } else if (rand > 0.8) {
-                            earned = 5; // 大胃王
-                            msg = '遇到大胃王顾客！';
-                        }
-                        
-                        lastEarnedCoins.value = earned;
-                        coinsProgress.value = Math.min(3000, coinsProgress.value + earned);
-                        
-                        showCoinAnim.value = true;
-                        if (msg) showToast(msg);
-                        
-                        setTimeout(() => showCoinAnim.value = false, 1000);
-                    }, 600); // 600ms animation
+                const finishMaking = () => {
+                    clearInterval(makeTimer);
+                    makeTimer = null;
+                    isMaking.value = false;
+                    makeSeconds.value = 5;
+                    const earned = 2;
+                    lastEarnedCoins.value = earned;
+                    coinsProgress.value = Math.min(3000, coinsProgress.value + earned);
+                    showCoinAnim.value = true;
+                    setTimeout(() => showCoinAnim.value = false, 1000);
                 };
 
-                const buyNode = (node) => {
-                    if (catCoins.value >= node.price) {
-                        catCoins.value -= node.price;
-                        node.purchased = true;
-                        showToast('成功购买进阶家具！');
-                    } else {
-                        showToast('猫爪币不足');
-                    }
+                const makeShavedIce = () => {
+                    if (myCubes.value < 1 || isMaking.value) return;
+                    isMaking.value = true;
+                    makeSeconds.value = 5;
+                    myCubes.value -= 1;
+                    makeTimer = setInterval(() => {
+                        makeSeconds.value -= 1;
+                        if (makeSeconds.value <= 0) finishMaking();
+                    }, 1000);
                 };
 
                 const buyAll = () => {
-                    if (coinsProgress.value < 3000) return;
+                    if (coinsProgress.value < 3000 || allPurchased.value) return;
                     const price = remainingPrice.value;
-                    if (price === 0) return;
-                    
                     if (catCoins.value >= price) {
                         catCoins.value -= price;
                         rewardNodes.value.forEach(n => n.purchased = true);
@@ -617,6 +1632,11 @@
                         showToast('猫爪币不足');
                     }
                 };
+
+                onBeforeUnmount(() => {
+                    clearInterval(makeTimer);
+                    clearTimeout(toastTimer);
+                });
 
                 return {
                     myCubes,
@@ -634,6 +1654,8 @@
                     allPurchased,
                     remainingPrice,
                     isMaking,
+                    makeSeconds,
+                    countdownText,
                     showCoinAnim,
                     lastEarnedCoins,
                     toastMsg,
@@ -642,11 +1664,10 @@
                     completeTask,
                     buyIce,
                     makeShavedIce,
-                    buyNode,
                     buyAll
-                }
+                };
             }
-        }).mount('#app')
+        }).mount('#app');
     </script>
 </body>
 </html>
