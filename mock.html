@@ -1487,10 +1487,9 @@
                     </div>
                 </div>
                 <div class="bottom-buy">
-                    <button class="unlock-all btn-press" @click="buyAll" :disabled="coinsProgress < 3000 || allPurchased">
+                    <button class="unlock-all btn-press" @click="buyAll" :disabled="allPurchased || unlockRemainingPrice <= 0">
                         <template v-if="allPurchased">已集齐</template>
-                        <template v-else-if="coinsProgress < 3000"><span class="gem" style="display:inline-block;vertical-align:-5px;margin-right:8px"></span>进度不足 3000</template>
-                        <template v-else><span class="gem" style="display:inline-block;vertical-align:-5px;margin-right:8px"></span>{{ unlockAllPrice }} 猫爪币 全部解锁</template>
+                        <template v-else><span class="gem" style="display:inline-block;vertical-align:-5px;margin-right:8px"></span>{{ unlockRemainingPrice }} 猫爪币 全部解锁</template>
                     </button>
                     <div class="tips">小tips: 猫爪币价格会根据实际进度做出相应调整<br><span>(已获取过的奖励不会重复发放)</span></div>
                 </div>
@@ -1527,7 +1526,13 @@
             setup() {
                 const makeCost = 30;
                 const makeReward = 60;
-                const unlockAllPrice = 1880;
+                const unlockPriceTiers = [
+                    { progress: 0, price: 1880 },
+                    { progress: 500, price: 1680 },
+                    { progress: 1000, price: 1480 },
+                    { progress: 2000, price: 1280 },
+                    { progress: 3000, price: 1080 }
+                ];
                 const myCubes = ref(30);
                 const partnerCubes = ref(0);
                 const coinsProgress = ref(0);
@@ -1611,7 +1616,11 @@
                 ]);
 
                 const tasksCompleted = computed(() => tasks.value.filter(t => t.completed).length);
-                const allPurchased = computed(() => rewardNodes.value.every(n => n.purchased));
+                const allPurchased = computed(() => coinsProgress.value >= 3000 && rewardNodes.value.every(n => n.purchased));
+                const unlockRemainingPrice = computed(() => {
+                    const tier = [...unlockPriceTiers].reverse().find(item => coinsProgress.value >= item.progress);
+                    return tier ? tier.price : unlockPriceTiers[0].price;
+                });
                 const countdownText = computed(() => `00:0${isMaking.value ? makeSeconds.value : 5} 后完成`);
 
                 const showToast = (msg) => {
@@ -1667,11 +1676,12 @@
                 };
 
                 const buyAll = () => {
-                    if (coinsProgress.value < 3000 || allPurchased.value) return;
-                    const price = unlockAllPrice;
+                    if (allPurchased.value || unlockRemainingPrice.value <= 0) return;
+                    const price = unlockRemainingPrice.value;
                     if (catCoins.value >= price) {
                         catCoins.value -= price;
                         rewardNodes.value.forEach(n => n.purchased = true);
+                        coinsProgress.value = 3000;
                         showToast('全部解锁成功，获得完整豪华小摊！');
                         showDirectPurchaseModal.value = false;
                     } else {
@@ -1698,7 +1708,7 @@
                     paidFurnitures,
                     tasksCompleted,
                     allPurchased,
-                    unlockAllPrice,
+                    unlockRemainingPrice,
                     makeCost,
                     makeReward,
                     isMaking,
