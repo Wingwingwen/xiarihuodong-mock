@@ -670,20 +670,18 @@
         .reward-grid {
             position: relative;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 34px 22px;
-            padding: 5px 6px 18px;
+            grid-template-columns: 1fr;
+            gap: 28px;
+            padding: 5px 12px 18px;
         }
         .path-line {
             position: absolute;
-            left: 25%;
-            right: 25%;
-            top: 53px;
-            bottom: 76px;
-            border-top: 5px dashed #e2e3d7;
-            border-right: 5px dashed #e2e3d7;
-            border-bottom: 5px dashed #e2e3d7;
-            border-radius: 0 52px 52px 0;
+            left: 50%;
+            top: 58px;
+            bottom: 72px;
+            width: 0;
+            border-left: 5px dashed #e2e3d7;
+            transform: translateX(-50%);
             pointer-events: none;
         }
         .node {
@@ -692,8 +690,6 @@
             justify-items: center;
             z-index: 1;
         }
-        .node:nth-child(4) { grid-column: 2; grid-row: 2; }
-        .node:nth-child(5) { grid-column: 1; grid-row: 2; }
         .node-target {
             display: flex;
             align-items: center;
@@ -711,26 +707,38 @@
             width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 7px;
+            gap: 14px;
             align-items: start;
         }
         .bundle {
             position: relative;
-            min-height: 74px;
-            padding-top: 12px;
+            min-height: 76px;
+            padding: 14px 8px 8px;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             align-content: flex-start;
-            gap: 4px;
+            gap: 6px;
+            border-radius: 16px;
+            background: rgba(255, 250, 239, .72);
         }
+        .bundle.paid { background: rgba(235, 246, 250, .76); }
+        .bundle-state {
+            width: 100%;
+            margin-top: 2px;
+            color: #b29a7d;
+            font-size: 10px;
+            font-weight: 1000;
+            text-align: center;
+        }
+        .bundle.paid .bundle-state { color: #7a9aad; }
         .bundle-label {
             position: absolute;
             left: 50%;
-            top: -3px;
+            top: -5px;
             transform: translateX(-50%);
             z-index: 2;
-            padding: 1px 5px 2px;
+            padding: 2px 8px 3px;
             border-radius: 999px;
             background: #d1c2aa;
             color: #fff;
@@ -752,6 +760,13 @@
             font-size: 17px;
             overflow: hidden;
         }
+        .reward-tile.locked {
+            background: #eee8dd;
+            border-color: #d8cab8;
+            color: #b3a99d;
+            filter: grayscale(.45);
+            opacity: .72;
+        }
         .reward-tile .price {
             position: absolute;
             left: 0;
@@ -766,9 +781,20 @@
             background: var(--blue);
             border-color: var(--blue-line);
         }
+        .reward-tile.paid.locked {
+            background: #e4e0d7;
+            border-color: #cfc5b6;
+        }
+        .reward-tile.paid.purchasable {
+            box-shadow: inset 0 0 0 2px rgba(255,255,255,.65), 0 3px 0 rgba(92,126,141,.16);
+        }
         .reward-tile.active {
             background: #fff5da;
             border-color: #e9c075;
+        }
+        .reward-tile.paid.owned {
+            background: #dff0e5;
+            border-color: #90bea0;
         }
         .lock {
             position: absolute;
@@ -798,6 +824,21 @@
             border: 2px solid #8fb1c0;
             color: #6e90a3;
             font-size: 8px;
+            font-weight: 1000;
+        }
+        .owned-mark {
+            position: absolute;
+            right: -2px;
+            bottom: -2px;
+            width: 17px;
+            height: 17px;
+            display: grid;
+            place-items: center;
+            border-radius: 6px;
+            background: #7ab27f;
+            border: 2px solid #d9f0d5;
+            color: #fff;
+            font-size: 10px;
             font-weight: 1000;
         }
         .direct-btn {
@@ -1313,12 +1354,12 @@
                     </button>
                 </div>
 
-                <button class="primary-action btn-press" @click="makeShavedIce" :disabled="myCubes < 1 || isMaking">
+                <button class="primary-action btn-press" @click="makeShavedIce" :disabled="myCubes < makeCost || isMaking">
                     {{ isMaking ? '制作中...' : '制作刨冰' }}
                 </button>
                 <div class="hint-line">
-                    <template v-if="isMaking">约 <strong>{{ makeSeconds }}</strong> 秒后完成，可获得冰块币</template>
-                    <template v-else>制作约 <strong>5</strong> 秒完成，完成后获得冰块币</template>
+                    <template v-if="isMaking">约 <strong>{{ makeSeconds }}</strong> 秒后完成，平均获得 {{ makeReward }} 冰块币</template>
+                    <template v-else>消耗 <strong>{{ makeCost }}</strong> 冰块，制作约 <strong>5</strong> 秒完成</template>
                 </div>
             </section>
 
@@ -1334,19 +1375,22 @@
                             <div class="reward-bundles">
                                 <div class="bundle free">
                                     <span class="bundle-label">普通x{{ node.freeItems.length }}</span>
-                                    <div v-for="(item, itemIndex) in node.freeItems" :key="node.target + '-free-' + itemIndex" class="reward-tile" :class="{ active: coinsProgress >= node.target }">
+                                    <div v-for="(item, itemIndex) in node.freeItems" :key="node.target + '-free-' + itemIndex" class="reward-tile" :class="{ active: coinsProgress >= node.target, locked: coinsProgress < node.target }">
                                         <span>{{ item.icon }}</span>
                                         <span v-if="item.price" class="price">{{ item.price }}</span>
                                         <span v-if="coinsProgress < node.target" class="lock">🔒</span>
                                     </div>
+                                    <span class="bundle-state">{{ coinsProgress >= node.target ? '可领取' : '未解锁' }}</span>
                                 </div>
                                 <div class="bundle paid">
                                     <span class="bundle-label">进阶x{{ node.paidItems.length }}</span>
-                                    <div v-for="(item, itemIndex) in node.paidItems" :key="node.target + '-paid-' + itemIndex" class="reward-tile paid" :class="{ active: node.purchased }">
+                                    <div v-for="(item, itemIndex) in node.paidItems" :key="node.target + '-paid-' + itemIndex" class="reward-tile paid" :class="{ locked: coinsProgress < node.target, purchasable: coinsProgress >= node.target && !node.purchased, owned: node.purchased }">
                                         <span>{{ item.icon }}</span>
                                         <span class="discount">8折</span>
                                         <span v-if="coinsProgress < node.target" class="lock">🔒</span>
+                                        <span v-else-if="node.purchased" class="owned-mark">✓</span>
                                     </div>
+                                    <span class="bundle-state">{{ node.purchased ? '已购买' : (coinsProgress >= node.target ? '可购买' : '达标可购') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -1375,18 +1419,18 @@
                         <div class="pack">
                             <span class="cube-icon"></span>
                             <div class="amount">10个</div>
-                            <button class="buy-small btn-press">贝壳 30</button>
+                            <button class="buy-small btn-press" @click="buyIce(10, 18)">猫爪 18</button>
                         </div>
                         <div class="pack">
                             <span class="cube-icon"></span>
                             <div class="amount">50个</div>
-                            <button class="buy-small btn-press" @click="buyIce(50, 180)">猫爪 180</button>
+                            <button class="buy-small btn-press" @click="buyIce(50, 80)">猫爪 80</button>
                         </div>
                         <div class="pack hot">
                             <span class="tag-hot">超值</span>
                             <span class="cube-icon"></span>
                             <div class="amount">100个</div>
-                            <button class="buy-small btn-press" @click="buyIce(100, 300)">猫爪 300</button>
+                            <button class="buy-small btn-press" @click="buyIce(100, 150)">猫爪 150</button>
                         </div>
                     </div>
 
@@ -1446,7 +1490,7 @@
                     <button class="unlock-all btn-press" @click="buyAll" :disabled="coinsProgress < 3000 || allPurchased">
                         <template v-if="allPurchased">已集齐</template>
                         <template v-else-if="coinsProgress < 3000"><span class="gem" style="display:inline-block;vertical-align:-5px;margin-right:8px"></span>进度不足 3000</template>
-                        <template v-else><span class="gem" style="display:inline-block;vertical-align:-5px;margin-right:8px"></span>{{ remainingPrice }} 猫爪币 全部解锁</template>
+                        <template v-else><span class="gem" style="display:inline-block;vertical-align:-5px;margin-right:8px"></span>{{ unlockAllPrice }} 猫爪币 全部解锁</template>
                     </button>
                     <div class="tips">小tips: 猫爪币价格会根据实际进度做出相应调整<br><span>(已获取过的奖励不会重复发放)</span></div>
                 </div>
@@ -1460,7 +1504,7 @@
                     <h2>活动规则</h2>
                     <div class="rule-list">
                         <p>活动期间，完成任务可获得<span style="color:#4b9fc7;font-weight:1000">冰块</span>。</p>
-                        <p>使用冰块制作刨冰，完成后可获得<span style="color:#d68c1f;font-weight:1000">冰块币</span>。</p>
+                        <p>每次制作刨冰消耗 30 个冰块，完成后平均获得<span style="color:#d68c1f;font-weight:1000">60 个冰块币</span>。</p>
                         <p>你的冰块仅你自己可使用，双方冰块不共享。</p>
                         <p>你和 TA 获得的冰块币会共同累计，一起解锁活动奖励。</p>
                         <p>冰块币达到指定进度后，可领取免费家具，并解锁高级家具折扣购买资格。</p>
@@ -1481,7 +1525,10 @@
 
         createApp({
             setup() {
-                const myCubes = ref(19);
+                const makeCost = 30;
+                const makeReward = 60;
+                const unlockAllPrice = 1880;
+                const myCubes = ref(30);
                 const partnerCubes = ref(0);
                 const coinsProgress = ref(0);
                 const catCoins = ref(10000);
@@ -1499,7 +1546,7 @@
                 let toastTimer = null;
 
                 const tasks = ref([
-                    { name: '每日签到', desc: '打卡！滴~', reward: 15, completed: false, actionText: '签到' },
+                    { name: '每日签到', desc: '打卡！滴~', reward: 30, completed: false, actionText: '签到' },
                     { name: '两人参与活动', desc: '两人都制作刨冰即可完成', reward: 15, completed: false },
                     { name: '发起你画我猜', desc: '出题发起一次你画我猜', reward: 15, completed: false },
                     { name: '装修小屋', desc: '去装修小摊', reward: 15, completed: false },
@@ -1565,7 +1612,6 @@
 
                 const tasksCompleted = computed(() => tasks.value.filter(t => t.completed).length);
                 const allPurchased = computed(() => rewardNodes.value.every(n => n.purchased));
-                const remainingPrice = computed(() => rewardNodes.value.reduce((total, node) => total + (node.purchased ? 0 : node.price), 0));
                 const countdownText = computed(() => `00:0${isMaking.value ? makeSeconds.value : 5} 后完成`);
 
                 const showToast = (msg) => {
@@ -1602,7 +1648,7 @@
                     makeTimer = null;
                     isMaking.value = false;
                     makeSeconds.value = 5;
-                    const earned = 2;
+                    const earned = makeReward;
                     lastEarnedCoins.value = earned;
                     coinsProgress.value = Math.min(3000, coinsProgress.value + earned);
                     showCoinAnim.value = true;
@@ -1610,10 +1656,10 @@
                 };
 
                 const makeShavedIce = () => {
-                    if (myCubes.value < 1 || isMaking.value) return;
+                    if (myCubes.value < makeCost || isMaking.value) return;
                     isMaking.value = true;
                     makeSeconds.value = 5;
-                    myCubes.value -= 1;
+                    myCubes.value -= makeCost;
                     makeTimer = setInterval(() => {
                         makeSeconds.value -= 1;
                         if (makeSeconds.value <= 0) finishMaking();
@@ -1622,7 +1668,7 @@
 
                 const buyAll = () => {
                     if (coinsProgress.value < 3000 || allPurchased.value) return;
-                    const price = remainingPrice.value;
+                    const price = unlockAllPrice;
                     if (catCoins.value >= price) {
                         catCoins.value -= price;
                         rewardNodes.value.forEach(n => n.purchased = true);
@@ -1652,7 +1698,9 @@
                     paidFurnitures,
                     tasksCompleted,
                     allPurchased,
-                    remainingPrice,
+                    unlockAllPrice,
+                    makeCost,
+                    makeReward,
                     isMaking,
                     makeSeconds,
                     countdownText,

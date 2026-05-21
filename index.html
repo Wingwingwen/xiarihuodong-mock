@@ -196,7 +196,7 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
           <tbody>
             <tr><td>活动主页面</td><td>包含</td><td>展示活动时间、盈利目标、双方冰块、制作刨冰入口、奖励进度</td></tr>
             <tr><td>任务获取冰块</td><td>包含</td><td>每日任务和长线任务均可配置</td></tr>
-            <tr><td>冰块购买</td><td>包含</td><td>贝壳购买作为轻加速；猫爪币购买仅开放中包和大包建议</td></tr>
+            <tr><td>冰块购买</td><td>包含</td><td>猫爪币购买 10 / 50 / 100 冰块包作为轻加速</td></tr>
             <tr><td>奖励领取与高级家具购买</td><td>包含</td><td>免费家具领取，高级家具解锁后用猫爪币按活动折扣价购买</td></tr>
             <tr><td>H5 演示原型</td><td>包含</td><td>右侧 iframe 内嵌当前目录 <code>index.html</code></td></tr>
             <tr><td>IAP 验单与补单细节</td><td>不展开</td><td>沿用礼包 / IAP 支付链路 PRD，不在本文锁定协议实现</td></tr>
@@ -213,8 +213,8 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
           <tbody>
             <tr><td>1</td><td>进入夏日刨冰小摊活动页</td><td>展示活动时间、当前冰块币进度、双方冰块数量</td><td>需要 Cobibu 绑定后参与</td></tr>
             <tr><td>2</td><td>完成任务或购买冰块</td><td>获得个人冰块</td><td>冰块为个人资产，不共享</td></tr>
-            <tr><td>3</td><td>点击制作刨冰</td><td>消耗个人冰块，进入短倒计时制作</td><td>客户端演示为 5 秒，正式数值以配置为准</td></tr>
-            <tr><td>4</td><td>刨冰制作完成</td><td>获得冰块币并累计到共享进度</td><td>双方冰块币进度共享</td></tr>
+            <tr><td>3</td><td>点击制作刨冰</td><td>消耗 30 个个人冰块，进入短倒计时制作</td><td>客户端演示为 5 秒，正式数值以配置为准</td></tr>
+            <tr><td>4</td><td>刨冰制作完成</td><td>平均获得 60 冰块币并累计到共享进度</td><td>双方冰块币进度共享</td></tr>
             <tr><td>5</td><td>达到 500 / 1000 / 2000 / 3000 节点</td><td>领取免费家具并解锁高级家具折扣购买资格</td><td>高级家具按活动折扣价购买，消耗付款用户个人猫爪币</td></tr>
           </tbody>
         </table>
@@ -238,10 +238,10 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
           <thead><tr><th>模块</th><th>推荐数值</th><th>说明</th></tr></thead>
           <tbody>
             <tr><td>总目标</td><td>3000 冰块币</td><td>活动主进度目标</td></tr>
-            <tr><td>冰块币产出</td><td>1 冰块 = 2 冰块币</td><td>本期不设置额外高收益顾客产出逻辑</td></tr>
-            <tr><td>每人每日免费冰块</td><td>75-90 个</td><td>取决于双方是否都参与活动任务</td></tr>
-            <tr><td>双人正常完成时间</td><td>7-9 天</td><td>18 天活动中前期有反馈、中期拉留存、后期留付费补齐空间</td></tr>
-            <tr><td>高级家具总价</td><td>3600 猫爪币</td><td>活动限定折扣家具升级价值，约 $6；活动结束后暂不开放购买</td></tr>
+            <tr><td>制作消耗与产出</td><td>30 冰块 → 平均 60 冰块币</td><td>等价于 1 冰块平均产出 2 冰块币；本期不设置额外高收益顾客产出逻辑</td></tr>
+            <tr><td>每人每日免费冰块</td><td>90-105 个</td><td>每日签到为 30 冰块，其余日常任务维持 15 冰块</td></tr>
+            <tr><td>双人正常完成时间</td><td>6-8 天</td><td>18 天活动中前期有反馈，中后期留付费补齐空间</td></tr>
+            <tr><td>高级家具一键解锁</td><td>1880 猫爪币</td><td>活动限定折扣家具升级价值；活动结束后暂不开放购买</td></tr>
           </tbody>
         </table>
       </section>
@@ -479,7 +479,8 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
             <tr><td>活动基础配置</td><td><code>Tools/Table/Datas/summer_shaved_ice_activity.xlsx</code></td><td>活动时间、总目标、入口开关</td><td>客户端 / 服务端</td></tr>
             <tr><td>任务配置</td><td><code>Tools/Table/Datas/summer_shaved_ice_task.xlsx</code></td><td>每日任务、长线任务、冰块奖励</td><td>客户端 / 服务端</td></tr>
             <tr><td>奖励节点配置</td><td><code>Tools/Table/Datas/summer_shaved_ice_reward.xlsx</code></td><td>500 / 1000 / 2000 / 3000 节点奖励</td><td>客户端 / 服务端</td></tr>
-            <tr><td>冰块购买配置</td><td><code>Tools/Table/Datas/summer_shaved_ice_cube_pack.xlsx</code></td><td>贝壳 / 猫爪币购买冰块包</td><td>客户端 / 服务端</td></tr>
+            <tr><td>冰块购买配置</td><td><code>Tools/Table/Datas/summer_shaved_ice_cube_pack.xlsx</code></td><td>猫爪币购买冰块包</td><td>客户端 / 服务端</td></tr>
+            <tr><td>高级家具购买配置</td><td><code>Tools/Table/Datas/summer_shaved_ice_paid_furniture.xlsx</code></td><td>高级家具解锁态、购买态、一键解锁价格</td><td>客户端 / 服务端</td></tr>
           </tbody>
         </table>
 
@@ -487,7 +488,7 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
         <table>
           <thead><tr><th>任务</th><th>奖励冰块</th><th>目的</th></tr></thead>
           <tbody>
-            <tr><td>每日签到</td><td>15</td><td>拉每日活跃</td></tr>
+            <tr><td>每日签到</td><td>30</td><td>拉每日活跃</td></tr>
             <tr><td>两人参与活动</td><td>15</td><td>拉双方活跃</td></tr>
             <tr><td>发起你画我猜</td><td>15</td><td>拉互动玩法</td></tr>
             <tr><td>装修小屋</td><td>15</td><td>拉小屋功能使用</td></tr>
@@ -497,15 +498,25 @@ footer { margin-top: 80px; padding-top: 28px; border-top: 1px solid var(--border
           </tbody>
         </table>
 
-        <h3>8.3 首版奖励与付费数据</h3>
+        <h3>8.3 首版冰块购买数据</h3>
         <table>
-          <thead><tr><th>冰块币进度</th><th>免费奖励</th><th>解锁猫爪币家具</th><th>对应猫爪币总价</th></tr></thead>
+          <thead><tr><th>冰块包</th><th>获得冰块</th><th>猫爪币价格</th><th>说明</th></tr></thead>
           <tbody>
-            <tr><td>500</td><td>免费家具 2 个</td><td>slot16、slot17</td><td>300</td></tr>
-            <tr><td>1000</td><td>免费家具 2 个</td><td>slot7、slot8</td><td>600</td></tr>
-            <tr><td>2000</td><td>免费家具 2 个</td><td>slot10、slot12、slot15</td><td>900</td></tr>
-            <tr><td>3000</td><td>免费家具 3 个</td><td>slot5、slot6、slot14</td><td>1800</td></tr>
-            <tr><td><strong>合计</strong></td><td><strong>免费家具 9 个</strong></td><td><strong>猫爪币家具 10 个</strong></td><td><strong>3600</strong></td></tr>
+            <tr><td>小包</td><td>10</td><td>18</td><td>轻量补足一次制作差额</td></tr>
+            <tr><td>中包</td><td>50</td><td>80</td><td>中等加速</td></tr>
+            <tr><td>大包</td><td>100</td><td>150</td><td>大包略优，鼓励临门一脚补进度</td></tr>
+          </tbody>
+        </table>
+
+        <h3>8.4 首版奖励与付费数据</h3>
+        <table>
+          <thead><tr><th>冰块币进度</th><th>免费奖励</th><th>解锁猫爪币家具</th><th>购买口径</th></tr></thead>
+          <tbody>
+            <tr><td>500</td><td>免费家具 2 个</td><td>slot16、slot17</td><td>达标后进入可购买态</td></tr>
+            <tr><td>1000</td><td>免费家具 2 个</td><td>slot7、slot8</td><td>达标后进入可购买态</td></tr>
+            <tr><td>2000</td><td>免费家具 2 个</td><td>slot10、slot12、slot15</td><td>达标后进入可购买态</td></tr>
+            <tr><td>3000</td><td>免费家具 3 个</td><td>slot5、slot6、slot14</td><td>达标后可一键解锁全部高级家具</td></tr>
+            <tr><td><strong>合计</strong></td><td><strong>免费家具 9 个</strong></td><td><strong>猫爪币家具 10 个</strong></td><td><strong>一键解锁 1880 猫爪币</strong></td></tr>
           </tbody>
         </table>
       </section>
